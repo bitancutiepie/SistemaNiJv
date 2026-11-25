@@ -1,4 +1,10 @@
+<div align="center">
+
+<img src="./assets/banner.svg" alt="The Wimpy Credentials Book Banner" width="100%" />
+
 # The Wimpy Credentials Book
+
+</div>
 
 [![Status](https://img.shields.io/badge/Status-Active-success?style=flat-square)](https://github.com/bitancutiepie/StudentCredentialsManager)
 [![Stack](https://img.shields.io/badge/Stack-HTML5_%7C_CSS3_%7C_JavaScript_%7C_Supabase-blue?style=flat-square)](https://github.com/bitancutiepie/StudentCredentialsManager)
