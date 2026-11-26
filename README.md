@@ -1,121 +1,29 @@
-<div align="center">
+# SistemaNiJv (The Wimpy Credentials Book)
 
-<img src="./assets/banner.svg" alt="The Wimpy Credentials Book Banner" width="100%" />
+[![Status](https://img.shields.io/badge/Status-Active-success?style=flat-square)](https://github.com/bitancutiepie/SistemaNiJv)
 
-# The Wimpy Credentials Book
+> A friendly, notebook-style student companion web app for managing classes, files, announcements, and daily campus life—all in one place.
 
-</div>
-
-[![Status](https://img.shields.io/badge/Status-Active-success?style=flat-square)](https://github.com/bitancutiepie/StudentCredentialsManager)
-[![Stack](https://img.shields.io/badge/Stack-HTML5_%7C_CSS3_%7C_JavaScript_%7C_Supabase-blue?style=flat-square)](https://github.com/bitancutiepie/StudentCredentialsManager)
-[![Database](https://img.shields.io/badge/Database-PostgreSQL-336791?style=flat-square&logo=postgresql)](https://github.com/bitancutiepie/StudentCredentialsManager)
-
-> A real-time student companion application with a hand-drawn sketchbook aesthetic.
-
-The Wimpy Credentials Book is a web-based academic management platform designed for a close-knit group of students. It combines a custom sketch-style UI with Supabase-powered real-time features, bringing together class schedules, file sharing, messaging, calendar events, and administrative tools in one cohesive experience.
+**SistemaNiJv** is built for a close-knit group of students and class officers. Designed to look and feel like a hand-drawn sketchbook, it brings together your class schedule, shared reviewers, homework deadlines, and class chats without the clutter of complicated apps.
 
 ---
 
-## Features
+## What You Can Do
 
-### Student Experience
-- **Live Schedule** — Weekly class timetable with a pulsing "Happening Now" indicator for active classes
-- **Resource Cabinet** — Organized file repository with filters, previews (PDF, images, video), and download
-- **Interactive Calendar** — Monthly event view with click-to-add for admins
-- **Freedom Wall** — Real-time collaborative sticky note board with draggable physics
-- **Messaging System** — Peer-to-peer chat with read receipts and inbox management
-- **Homework Tracker** — Assignment deadlines displayed on the dashboard
+### For Students
+- **Live Class Schedule** — Check your weekly timetable anytime and see a pulsing **"Happening Now"** indicator for your current class.
+- **Resource Cabinet** — Find and download class reviewers, PDFs, images, and videos organized by subject.
+- **Homework Tracker** — Keep track of upcoming assignments and deadlines right on your dashboard.
+- **Interactive Calendar** — View upcoming class events, exams, and activities by month.
+- **Freedom Wall** — Post and move around digital sticky notes with your classmates in real time.
+- **Messaging & Group Chat** — Send private messages to classmates or hang out in the live group chat.
+- **Mini-Games** — Take a break with built-in Creature Battles, Minesweeper, and Wordle.
 
-### Administration
-- **Admin Tool Panel** — Centralized forms for managing classes, homework, events, files, and broadcasts
-- **Student Management** — Registration handling, role promotion/revocation, enrollment tracking
-- **File Management** — Gallery uploads, receipt collection, storage usage monitoring
-- **Email Broadcasting** — Send announcements to all students or specific recipients
-- **Real-time Announcements** — Pop-up broadcast to all active sessions
-
-### Real-time & Interactive
-- **Live Presence** — "Recently Spotted" section showing active users
-- **Group Chat** — Real-time group messaging with typing indicators
-- **Creature Battles** — Lightweight multiplayer game between students
-- **System Updates** — Auto-expiring announcements with comment threads
-
----
-
-## Tech Stack
-
-| Layer | Technology |
-|-------|-----------|
-| Frontend | HTML5, CSS3 (Flexbox, Grid, CSS Variables, Animations), Vanilla JavaScript (ES6+) |
-| Backend | Supabase (PostgreSQL, Realtime, Storage, Auth) |
-| Fonts | Patrick Hand, Permanent Marker, Outfit (Google Fonts) |
-| Icons | FontAwesome 6.5 |
-| APIs | EmailJS, html2canvas, PDF.js |
-
-> **No framework, no bundler.** The entire application is built with vanilla HTML/CSS/JS, served as a static site (GitHub Pages compatible). All real-time features are powered by Supabase Realtime channels.
-
----
-
-## Architecture
-
-```
-┌─────────────────────────────────────────────────┐
-│                 Static Hosting                    │
-│  (GitHub Pages / any static file server)          │
-│                                                   │
-│  index.html  ── js/script.js                      │
-│  web2.html   ── js/dashboard.js, js/admin.js,       │
-│                 js/messaging.js, js/group-chat.js,   │
-│                 js/creature-battle.js, js/minesweeper.js, │
-│                 js/wordle.js, js/file-manager.js,    │
-│                 js/pdf-scanner.js                    │
-│  css/         ── common.css, auth.css, admin.css,    │
-│                 dashboard.css, games.css, group-chat.css │
-│  js/          ── config.js, common.js              │
-└──────────┬──────────────────────────┬─────────────┘
-           │                          │
-           ▼                          ▼
-    ┌──────────────┐        ┌──────────────────┐
-    │  Supabase     │        │  Supabase         │
-    │  REST API     │        │  Realtime         │
-    │  (CRUD ops)   │        │  (WebSocket)      │
-    └──────┬───────┘        └────────┬─────────┘
-           │                         │
-           ▼                         ▼
-    ┌──────────────────────────────────────────┐
-    │         PostgreSQL Database                │
-    │  Tables: students, schedule, assignments,  │
-    │  events, shared_files, notes, messages,    │
-    │  requests, user_statuses, flashcards,      │
-    │  global_todos, todo_completions            │
-    └──────────────────────────────────────────┘
-```
-
-### Data Flow
-1. Client-side JavaScript authenticates via Supabase anon key (application-level auth)
-2. All CRUD operations go through Supabase REST API (PostgREST)
-3. Real-time features (chat, announcements, presence) use Supabase Realtime WebSocket channels
-4. File uploads stored in Supabase Storage buckets (`avatars`, `class-resources`)
-
----
-
-## Database Schema
-
-| Table | Purpose | Key Columns |
-|-------|---------|-------------|
-| `students` | User accounts & profiles | id, sr_code, name, full_name, email, avatar_url, role, enrollment_status, section, last_login, battle_wins, battle_losses |
-| `schedule` | Weekly class timetable | subject_code, subject_name, start_time, end_time, day_of_week, room, instructor, section, meet_link, classroom_link |
-| `assignments` | Homework tracking | title, subject, description, due_date |
-| `events` | Calendar events | title, event_date, description |
-| `shared_files` | Uploaded resources | title, subject, file_url, file_type, created_at |
-| `notes` | Sticky notes, announcements, comments, chat messages | content, color (discriminator), x_pos, y_pos, rotation |
-| `messages` | Peer-to-peer chat | sender_id, receiver_id, content, is_read |
-| `requests` | Anonymous messages to admin | content, sender, created_at |
-| `user_statuses` | Online presence tracking | user_id, status |
-| `flashcards` | Resource links (auto-delete 7 days) | topic, link, description |
-| `global_todos` | Admin-created tasks | task_name, created_by |
-| `todo_completions` | Task completion tracking | todo_id, user_id |
-
-> **Note:** The `notes` table serves as a polymorphic store — the `color` column discriminates between sticky notes, global announcements, comments, group chat messages, wordle words, and file view logs.
+### For Class Officers & Admins
+- **Admin Tool Panel** — Easily add or update class schedules, homework, calendar events, and shared files.
+- **Student Management** — Approve new student registrations, manage roles, and track enrollment.
+- **Email & Live Broadcasts** — Send important announcements via email or pop-up alerts to everyone currently online.
+- **File & Receipt Collection** — Organize class gallery photos, collect receipts, and monitor storage usage.
 
 ---
 
@@ -143,23 +51,21 @@ The Wimpy Credentials Book is a web-based academic management platform designed 
 
 ---
 
-## Quick Start
+## Want to Run Your Own Copy?
+
+You can clone this repository to explore or host your own version. Note that private class data and our live database are not included, so you will need to connect your own [Supabase](https://supabase.com) project:
 
 ```bash
-# Clone the repository
-git clone https://github.com/bitancutiepie/StudentCredentialsManager.git
-cd StudentCredentialsManager
-
-# Serve locally (any static file server)
+git clone https://github.com/bitancutiepie/SistemaNiJv.git
+cd SistemaNiJv
 npx serve .
 ```
 
-1. Create a Supabase project at [supabase.com](https://supabase.com)
-2. Create the tables listed in the schema section
-3. Enable Realtime for `messages` and `notes` tables
-4. Create public storage buckets: `avatars`, `class-resources`
-5. Update `SUPABASE_URL` and `SUPABASE_KEY` in `js/config.js`
-6. Open `http://localhost:3000` in your browser
+1. Create a free project at [supabase.com](https://supabase.com).
+2. Run `supabase-migration.sql` in your Supabase SQL Editor to set up the tables.
+3. Enable Realtime for `messages` and `notes`, and create public storage buckets named `avatars` and `class-resources`.
+4. Add your own `SUPABASE_URL` and `SUPABASE_KEY` in `js/config.js`.
+5. Open `http://localhost:3000` in your browser.
 
 ---
 

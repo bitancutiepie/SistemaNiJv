@@ -24,4 +24,13 @@ dist/
 
 # Local agent/IDE state (mirrors .agents/skills, safe to re-sync)
 .claude/
+.agents/
+AGENT.md
+opencode.json
+skills-lock.json
+stitch-design.md
+context/
+doc/
+config/
+*.docx
 config/.opencode/node_modules/
