@@ -97,7 +97,7 @@ window.openChatModal = async function (partnerId, partnerName) {
     if (partnerId === user.id) return showToast('Talking to yourself?');
 
     currentChatPartnerId = partnerId;
-    document.getElementById('chat-with-name').innerHTML = `<i class="fas fa-comments"></i> Chat with ${escapeHTML(partnerName)}`;
+    document.getElementById('chat-with-name').innerHTML = `<i class="ph ph-chats-circle"></i> Chat with ${escapeHTML(partnerName)}`;
     document.getElementById('chat-target-id').value = partnerId;
     document.getElementById('chatModal').classList.remove('hidden');
 
@@ -201,7 +201,7 @@ function handleIncomingMessage(msg) {
             const toast = document.createElement('div');
             toast.className = 'toast';
             toast.style.cursor = 'pointer';
-            toast.innerHTML = `<b><i class="fas fa-envelope"></i> New Note!</b><br><span style="font-size:0.9rem">Click to read</span>`;
+            toast.innerHTML = `<b><i class="ph ph-envelope"></i> New Note!</b><br><span style="font-size:0.9rem">Click to read</span>`;
             toast.onclick = () => {
                 toast.remove();
                 openInboxModal();
@@ -406,11 +406,11 @@ window.fetchAdminMessages = async function () {
                  style="background:#fff; border:2px solid #000; padding:10px; margin-bottom:8px; border-radius:5px; cursor:pointer; transition:transform 0.1s; display:flex; justify-content:space-between; align-items:center;"
                  onmouseover="this.style.transform='scale(1.01)'" onmouseout="this.style.transform='scale(1)'">
                 <div style="flex:1;">
-                    <div style="font-weight:bold; font-size:1.1rem;">${escapeHTML(name1)} <i class="fas fa-exchange-alt" style="font-size:0.8rem; color:#666;"></i> ${escapeHTML(name2)}</div>
+                    <div style="font-weight:bold; font-size:1.1rem;">${escapeHTML(name1)} <i class="ph ph-arrows-left-right" style="font-size:0.8rem; color:#666;"></i> ${escapeHTML(name2)}</div>
                     <div style="font-size:0.9rem; color:#555;">${escapeHTML(preview)}</div>
                     <div style="font-size:0.8rem; color:#888;">${conv.count} messages • Last: ${date}</div>
                 </div>
-                <div style="font-size:1.2rem; color:#000;"><i class="fas fa-chevron-right"></i></div>
+                <div style="font-size:1.2rem; color:#000;"><i class="ph ph-caret-right"></i></div>
             </div>
         `;
         })
@@ -444,9 +444,9 @@ window.viewAdminConversation = async function (id1, id2) {
 
     const header = `
         <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:10px; border-bottom:2px dashed #000; padding-bottom:10px;">
-            <button onclick="fetchAdminMessages()" class="sketch-btn" style="width:auto; padding:5px 10px; font-size:0.9rem;"><i class="fas fa-arrow-left"></i> Back</button>
+            <button onclick="fetchAdminMessages()" class="sketch-btn" style="width:auto; padding:5px 10px; font-size:0.9rem;"><i class="ph ph-arrow-left"></i> Back</button>
             <div style="font-weight:bold; font-size:1rem;">${escapeHTML(name1)} & ${escapeHTML(name2)}</div>
-            <button onclick="deleteConversation('${id1}', '${id2}')" class="sketch-btn danger" style="width:auto; padding:5px 10px; font-size:0.9rem;"><i class="fas fa-trash"></i> Delete All</button>
+            <button onclick="deleteConversation('${id1}', '${id2}')" class="sketch-btn danger" style="width:auto; padding:5px 10px; font-size:0.9rem;"><i class="ph ph-trash"></i> Delete All</button>
         </div>
     `;
 

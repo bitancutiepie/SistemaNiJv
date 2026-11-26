@@ -152,15 +152,15 @@ window.midtermOpenImg = function (src) {
 function mtStyle(id) {
     // Same palette/icons as Files tab folders — no new CSS.
     const map = {
-        ged107: ['#00b894', 'fa-heart'],
-        it314: ['#00cec9', 'fa-laptop-code'],
-        bat401: ['#d63031', 'fa-chart-line'],
-        bat402: ['#0984e3', 'fa-chart-bar'],
-        it311: ['#e17055', 'fa-server'],
-        it312: ['#6c5ce7', 'fa-network-wired'],
-        it313: ['#fdcb6e', 'fa-diagram-project'],
+        ged107: ['#00b894', 'ph-heart'],
+        it314: ['#00cec9', 'ph-laptop'],
+        bat401: ['#d63031', 'ph-chart-line'],
+        bat402: ['#0984e3', 'ph-chart-bar'],
+        it311: ['#e17055', 'ph-hard-drives'],
+        it312: ['#6c5ce7', 'ph-share-network'],
+        it313: ['#fdcb6e', 'ph-tree-structure'],
     };
-    return map[id] || ['#636e72', 'fa-folder'];
+    return map[id] || ['#636e72', 'ph-folder'];
 }
 
 function mtRefreshMenu() {
@@ -242,8 +242,8 @@ window.openMidtermReviewer = async function (code, btn) {
         box.innerHTML = rows
             .map((f) => {
                 const t = (f.file_type || '').toLowerCase();
-                const ic = t.includes('pdf') ? 'fa-file-pdf' : t.includes('image') ? 'fa-file-image' : 'fa-file';
-                return `<button onclick="openMidtermFile('${esc(f.file_url)}','${esc(f.title)}','${f.id}')" class="sketch-btn" style="width:100%;justify-content:flex-start;font-size:1rem;margin-bottom:6px;"><i class="fas ${ic}"></i> ${f.title || 'Untitled'}</button>`;
+                const ic = t.includes('pdf') ? 'ph-file-pdf' : t.includes('image') ? 'ph-file-image' : 'ph-file';
+                return `<button onclick="openMidtermFile('${esc(f.file_url)}','${esc(f.title)}','${f.id}')" class="sketch-btn" style="width:100%;justify-content:flex-start;font-size:1rem;margin-bottom:6px;"><i class="ph ${ic}"></i> ${f.title || 'Untitled'}</button>`;
             })
             .join('');
     } catch (err) {
@@ -269,17 +269,17 @@ window.showMidtermDetail = function (id) {
         <div class="subject-folder-grid" style="grid-template-columns:repeat(3,1fr);margin-bottom:8px;">
             <div data-mtview="photo" class="subject-folder active" role="button" tabindex="0" onclick="midtermView('photo',this)" onkeydown="if(event.key==='Enter')midtermView('photo',this)" style="--folder-color:#00b894;">
                 <div style="position:absolute;top:0;left:0;right:0;height:6px;background:#00b894;border-radius:9px 9px 0 0;"></div>
-                <span class="folder-emoji" style="color:#00b894;"><i class="fas fa-image"></i></span>
+                <span class="folder-emoji" style="color:#00b894;"><i class="ph ph-image"></i></span>
                 <span class="folder-name">Photo</span>
             </div>
             <div data-mtview="text" class="subject-folder" role="button" tabindex="0" onclick="midtermView('text',this)" onkeydown="if(event.key==='Enter')midtermView('text',this)" style="--folder-color:#0984e3;">
                 <div style="position:absolute;top:0;left:0;right:0;height:6px;background:#0984e3;border-radius:9px 9px 0 0;"></div>
-                <span class="folder-emoji" style="color:#0984e3;"><i class="fas fa-list-ul"></i></span>
+                <span class="folder-emoji" style="color:#0984e3;"><i class="ph ph-list-bullets"></i></span>
                 <span class="folder-name">Text list</span>
             </div>
             <div data-mtview="rev" class="subject-folder" role="button" tabindex="0" onclick="openMidtermReviewer('${m.code}',this)" onkeydown="if(event.key==='Enter')openMidtermReviewer('${m.code}',this)" style="--folder-color:#6c5ce7;">
                 <div style="position:absolute;top:0;left:0;right:0;height:6px;background:#6c5ce7;border-radius:9px 9px 0 0;"></div>
-                <span class="folder-emoji" style="color:#6c5ce7;"><i class="fas fa-book-open"></i></span>
+                <span class="folder-emoji" style="color:#6c5ce7;"><i class="ph ph-book-open"></i></span>
                 <span class="folder-name">Reviewer</span>
             </div>
         </div>
@@ -305,7 +305,7 @@ window.showMidtermsPopup = function () {
         return `
         <div data-mt="${m.id}" class="subject-folder" role="button" tabindex="0" title="${m.code} — ${m.name}" onclick="showMidtermDetail('${m.id}')" onkeydown="if(event.key==='Enter')showMidtermDetail('${m.id}')" style="--folder-color:${color};">
             <div style="position:absolute;top:0;left:0;right:0;height:6px;background:${color};border-radius:9px 9px 0 0;"></div>
-            <span class="folder-emoji" style="color:${color};"><i class="fas ${icon}"></i></span>
+            <span class="folder-emoji" style="color:${color};"><i class="ph ${icon}"></i></span>
             <span class="folder-name" title="${m.code} — ${m.name}">${m.code}</span>
             <span title="${m.code} — ${m.name}" style="display:block;font-family:'Patrick Hand';font-size:0.8rem;color:#636e72;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">${m.name}</span>
             <span class="folder-count">${m.date}</span>

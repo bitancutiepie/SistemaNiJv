@@ -103,12 +103,12 @@
                 <!-- Leaderboard Section -->
                 <div id="battle-leaderboard-section" class="battle-leaderboard-section">
                     <div class="lb-header" onclick="window.toggleLeaderboard()">
-                        <h3><i class="fas fa-trophy"></i> LEADERBOARD</h3>
-                        <i class="fas fa-chevron-down" id="lb-toggle-icon"></i>
+                        <h3><i class="ph ph-trophy"></i> LEADERBOARD</h3>
+                        <i class="ph ph-caret-down" id="lb-toggle-icon"></i>
                     </div>
                     <div id="battle-leaderboard-content" class="lb-content">
                         <div style="text-align: center; padding: 20px; color: #999; font-family: 'Patrick Hand';">
-                            <i class="fas fa-spinner fa-spin"></i> Loading...
+                            <i class="ph ph-spinner ph-spin"></i> Loading...
                         </div>
                     </div>
                 </div>
@@ -130,8 +130,8 @@
                                         <p>${c.lore}</p>
                                     </div>
                                     <div class="tcg-card-matchups">
-                                        <span class="tcg-beats"><i class="fas fa-chevron-up"></i> ${c.beats.map((b) => CREATURES[b].name).join(', ')}</span>
-                                        <span class="tcg-loses"><i class="fas fa-chevron-down"></i> ${c.losesTo.map((l) => CREATURES[l].name).join(', ')}</span>
+                                        <span class="tcg-beats"><i class="ph ph-caret-up"></i> ${c.beats.map((b) => CREATURES[b].name).join(', ')}</span>
+                                        <span class="tcg-loses"><i class="ph ph-caret-down"></i> ${c.losesTo.map((l) => CREATURES[l].name).join(', ')}</span>
                                     </div>
                                 </div>
                             </div>
@@ -154,8 +154,8 @@
         if (!content) return;
         content.classList.toggle('lb-collapsed');
         if (icon) {
-            icon.classList.toggle('fa-chevron-down');
-            icon.classList.toggle('fa-chevron-up');
+            icon.classList.toggle('ph-caret-down');
+            icon.classList.toggle('ph-caret-up');
         }
     };
 
@@ -220,14 +220,14 @@
 
         if (!ranked || ranked.length === 0) {
             container.innerHTML =
-                '<div style="text-align: center; padding: 30px; font-family: Patrick Hand; color: #999; font-size: 1.2rem;"><i class="fas fa-ghost" style="font-size: 2rem; margin-bottom: 10px; display: block;"></i>No battles yet. Be the first to fight!</div>';
+                '<div style="text-align: center; padding: 30px; font-family: Patrick Hand; color: #999; font-size: 1.2rem;"><i class="ph ph-ghost" style="font-size: 2rem; margin-bottom: 10px; display: block;"></i>No battles yet. Be the first to fight!</div>';
             return;
         }
 
         var topPlayer = ranked[0];
         var topStars = getStars(topPlayer.winRate);
         var starHTML = '';
-        for (var s = 0; s < topStars; s++) starHTML += '<i class="fas fa-star"></i>';
+        for (var s = 0; s < topStars; s++) starHTML += '<i class="ph ph-star"></i>';
 
         var html = '<div class="lb-layout">';
 
@@ -240,14 +240,14 @@
             '" alt="' +
             escapeHTML(topPlayer.name) +
             '" class="lb-top-avatar"></div>';
-        html += '<div class="lb-top-stars">' + (starHTML || '<i class="far fa-star"></i>') + '</div>';
+        html += '<div class="lb-top-stars">' + (starHTML || '<i class="ph ph-star"></i>') + '</div>';
         html += '<div class="lb-top-name">' + escapeHTML(topPlayer.name) + '</div>';
         html += '<div class="lb-top-score">' + topPlayer.score + '</div>';
         html += '<div class="lb-top-score-label">Points</div>';
         html +=
-            '<div class="lb-top-stats"><span class="lb-wl-win"><i class="fas fa-check"></i> ' +
+            '<div class="lb-top-stats"><span class="lb-wl-win"><i class="ph ph-check"></i> ' +
             topPlayer.wins +
-            'W</span> <span class="lb-wl-lose"><i class="fas fa-times"></i> ' +
+            'W</span> <span class="lb-wl-lose"><i class="ph ph-x"></i> ' +
             topPlayer.losses +
             'L</span></div>';
         html += '</div>';
@@ -259,8 +259,8 @@
             var rank = i + 1;
             var pStars = getStars(p.winRate);
             var pStarHTML = '';
-            for (var j = 0; j < pStars; j++) pStarHTML += '<i class="fas fa-star"></i>';
-            if (pStars === 0) pStarHTML = '<i class="far fa-star"></i>';
+            for (var j = 0; j < pStars; j++) pStarHTML += '<i class="ph ph-star"></i>';
+            if (pStars === 0) pStarHTML = '<i class="ph ph-star"></i>';
 
             var rankClass = 'lb-rank-default';
             if (rank === 1) rankClass = 'lb-rank-gold';
@@ -339,7 +339,7 @@
         overlay.innerHTML = `
             <div class="wimpy-modal-box" style="max-width: 420px; max-height: 70vh; display: flex; flex-direction: column;">
                 <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:10px; border-bottom: 2px dashed #000; padding-bottom: 10px;">
-                    <h2 style="margin:0; font-size: 1.5rem;"><i class="fas fa-users"></i> Choose Your Opponent</h2>
+                    <h2 style="margin:0; font-size: 1.5rem;"><i class="ph ph-users"></i> Choose Your Opponent</h2>
                     <button onclick="document.getElementById('battle-opponent-modal').classList.add('hidden')" class="sketch-btn danger" style="width:auto; padding: 5px 10px;">X</button>
                 </div>
                 <div style="flex: 1; overflow-y: auto; display: flex; flex-direction: column; gap: 8px;">
@@ -394,7 +394,7 @@
         const container = document.getElementById('battle-game-container');
         if (container) {
             container.innerHTML =
-                '<div class="battle-waiting"><div class="battle-waiting-card"><i class="fas fa-spinner fa-spin" style="font-size: 2.5rem; color: #6c5ce7;"></i><h3 style="font-family: Permanent Marker; margin: 15px 0 5px;">Waiting for ' +
+                '<div class="battle-waiting"><div class="battle-waiting-card"><i class="ph ph-spinner ph-spin" style="font-size: 2.5rem; color: #6c5ce7;"></i><h3 style="font-family: Permanent Marker; margin: 15px 0 5px;">Waiting for ' +
                 escapeHTML(targetName) +
                 '...</h3><p style="font-family: Patrick Hand; color: #666;">Battle invite sent! Waiting for response.</p><button class="sketch-btn danger" onclick="window.cancelBattleInvite()" style="margin-top: 15px; width: auto;">Cancel</button></div></div>';
         }
@@ -448,7 +448,7 @@
             }
             var retryBtn = document.getElementById('battle-play-again-btn');
             if (retryBtn) {
-                retryBtn.innerHTML = '<i class="fas fa-play"></i> ACCEPT REMATCH';
+                retryBtn.innerHTML = '<i class="ph ph-play"></i> ACCEPT REMATCH';
                 retryBtn.style.background = '#6c5ce7';
                 retryBtn.onclick = function () {
                     window.acceptBattleInvite();
@@ -598,7 +598,7 @@
                 '"></div>';
             html += '<div class="tcg-select-name">' + c.name + '</div>';
             html +=
-                '<div class="battle-card-matchup"><small class="tcg-beats"><i class="fas fa-chevron-up"></i> ' +
+                '<div class="battle-card-matchup"><small class="tcg-beats"><i class="ph ph-caret-up"></i> ' +
                 c.beats
                     .map(function (b) {
                         return CREATURES[b].name;
@@ -606,7 +606,7 @@
                     .join(', ') +
                 '</small>';
             html +=
-                '<small class="tcg-loses"><i class="fas fa-chevron-down"></i> ' +
+                '<small class="tcg-loses"><i class="ph ph-caret-down"></i> ' +
                 c.losesTo
                     .map(function (l) {
                         return CREATURES[l].name;
@@ -617,7 +617,7 @@
 
         html += '</div>';
         html +=
-            '<div id="battle-confirm-area" class="battle-confirm-area hidden"><button class="sketch-btn" id="battle-confirm-btn" onclick="window.confirmCreatureChoice()" style="background: #6c5ce7; color: #fff; font-size: 1.3rem; padding: 12px 40px; width: auto;"><i class="fas fa-check"></i> LOCK IN!</button></div></div>';
+            '<div id="battle-confirm-area" class="battle-confirm-area hidden"><button class="sketch-btn" id="battle-confirm-btn" onclick="window.confirmCreatureChoice()" style="background: #6c5ce7; color: #fff; font-size: 1.3rem; padding: 12px 40px; width: auto;"><i class="ph ph-check"></i> LOCK IN!</button></div></div>';
 
         container.innerHTML = html;
 
@@ -684,7 +684,7 @@
         var confirmArea = document.getElementById('battle-confirm-area');
         if (confirmArea) {
             confirmArea.innerHTML =
-                '<div style="display: flex; align-items: center; gap: 10px; justify-content: center;"><i class="fas fa-lock" style="color: #6c5ce7; font-size: 1.3rem;"></i><span style="font-family: Permanent Marker; font-size: 1.3rem; color: #6c5ce7;">LOCKED IN — ' +
+                '<div style="display: flex; align-items: center; gap: 10px; justify-content: center;"><i class="ph ph-lock" style="color: #6c5ce7; font-size: 1.3rem;"></i><span style="font-family: Permanent Marker; font-size: 1.3rem; color: #6c5ce7;">LOCKED IN — ' +
                 CREATURES[myChoice].name +
                 '</span></div><p style="font-family: Patrick Hand; color: #999; margin-top: 5px;">Waiting for opponent to choose...</p>';
         }
@@ -932,7 +932,7 @@
                 '<div id="rematch-status-text"></div>' +
                 '<button id="battle-play-again-btn" class="sketch-btn" onclick="window.battlePlayAgain()" style="background: ' +
                 cfg.color +
-                '; color: #fff; width: auto; margin-top: 15px; font-size: 1.1rem; padding: 10px 30px;"><i class="fas fa-redo"></i> PLAY AGAIN</button>' +
+                '; color: #fff; width: auto; margin-top: 15px; font-size: 1.1rem; padding: 10px 30px;"><i class="ph ph-arrows-clockwise"></i> PLAY AGAIN</button>' +
                 '<button class="sketch-btn" onclick="window.battleBackToLobby()" style="width: auto; margin-top: 10px; font-size: 1rem; padding: 8px 20px;">Back to Lobby</button>' +
                 '</div>';
         }
@@ -1070,7 +1070,7 @@
                 '<div class="tourney-banner-text"><h4>TOURNAMENT ACTIVE!</h4><p>' +
                 statusText +
                 '</p></div>' +
-                '<i class="fas fa-chevron-right" style="color: #fff; font-size: 1.2rem;"></i>';
+                '<i class="ph ph-caret-right" style="color: #fff; font-size: 1.2rem;"></i>';
             loreHeader.parentNode.insertBefore(banner, loreHeader.nextSibling);
         }
     };
@@ -1108,7 +1108,7 @@
             '<div class="tourney-size-btn" data-size="8" onclick="window.selectTourneySize(this, 8)"><span>8</span><span>Players</span></div>' +
             '<div class="tourney-size-btn" data-size="16" onclick="window.selectTourneySize(this, 16)"><span>16</span><span>Players</span></div>' +
             '</div>' +
-            '<button class="sketch-btn" onclick="window.createTourney()" style="background: #6c5ce7; color: #fff; width: 100%; font-size: 1.2rem; padding: 12px;"><i class="fas fa-trophy"></i> CREATE TOURNAMENT</button>' +
+            '<button class="sketch-btn" onclick="window.createTourney()" style="background: #6c5ce7; color: #fff; width: 100%; font-size: 1.2rem; padding: 12px;"><i class="ph ph-trophy"></i> CREATE TOURNAMENT</button>' +
             '</div>' +
             '</div>';
 
@@ -1277,7 +1277,7 @@
                     '</span></div>';
             } else {
                 participantsHTML +=
-                    '<div class="tourney-slot-empty"><i class="fas fa-user-plus"></i><span>Empty</span></div>';
+                    '<div class="tourney-slot-empty"><i class="ph ph-user-plus"></i><span>Empty</span></div>';
             }
         }
 
@@ -1293,7 +1293,7 @@
                 (canStart
                     ? ''
                     : ' disabled style="background: #b2bec3; color: #fff; width: auto; font-size: 1.1rem; padding: 10px 25px; cursor: not-allowed;"') +
-                '><i class="fas fa-play"></i> START TOURNAMENT (' +
+                '><i class="ph ph-play"></i> START TOURNAMENT (' +
                 tourney.participants.length +
                 '/' +
                 tourney.size +
@@ -1304,7 +1304,7 @@
                 '<button class="sketch-btn danger" onclick="window.leaveTourney()" style="width: auto; padding: 10px 20px;">Leave Tournament</button>';
         } else {
             actionsHTML =
-                '<button class="sketch-btn" onclick="window.joinTourney()" style="background: #6c5ce7; color: #fff; width: auto; font-size: 1.1rem; padding: 10px 25px;"><i class="fas fa-sign-in-alt"></i> JOIN TOURNAMENT</button>' +
+                '<button class="sketch-btn" onclick="window.joinTourney()" style="background: #6c5ce7; color: #fff; width: auto; font-size: 1.1rem; padding: 10px 25px;"><i class="ph ph-sign-in"></i> JOIN TOURNAMENT</button>' +
                 '<button class="sketch-btn" onclick="window.battleBackToLobby()" style="width: auto; padding: 10px 20px;">Back</button>';
         }
 
@@ -1532,13 +1532,13 @@
             standingsHTML = renderStandings();
             actionsHTML =
                 '<div style="text-align: center; margin-top: 20px;">' +
-                '<button class="sketch-btn" onclick="window.endTourney()" style="background: #6c5ce7; color: #fff; width: auto; padding: 10px 25px; font-size: 1.1rem;"><i class="fas fa-home"></i> BACK TO LOBBY</button>' +
+                '<button class="sketch-btn" onclick="window.endTourney()" style="background: #6c5ce7; color: #fff; width: auto; padding: 10px 25px; font-size: 1.1rem;"><i class="ph ph-house"></i> BACK TO LOBBY</button>' +
                 '</div>';
         } else {
             actionsHTML = '<div style="text-align: center; margin-top: 15px;">';
             if (isTourneyHost) {
                 actionsHTML +=
-                    '<button class="sketch-btn" onclick="window.triggerNextMatchManual()" style="background: #00b894; color: #fff; width: auto; padding: 8px 20px; margin: 5px;"><i class="fas fa-bolt"></i> Trigger Next Match</button>';
+                    '<button class="sketch-btn" onclick="window.triggerNextMatchManual()" style="background: #00b894; color: #fff; width: auto; padding: 8px 20px; margin: 5px;"><i class="ph ph-lightning"></i> Trigger Next Match</button>';
                 actionsHTML +=
                     '<button class="sketch-btn danger" onclick="window.cancelTourney()" style="width: auto; padding: 8px 20px; margin: 5px;">Cancel Tournament</button>';
             }
@@ -1653,7 +1653,7 @@
 
         var html =
             '<div class="tourney-standings">' +
-            '<div class="tourney-standings-header"><i class="fas fa-list-ol"></i> Tournament Standings</div>';
+            '<div class="tourney-standings-header"><i class="ph ph-list-numbers"></i> Tournament Standings</div>';
 
         for (var s = 0; s < standings.length; s++) {
             var st = standings[s];
@@ -1861,7 +1861,7 @@
                 bracketBtn.className = 'sketch-btn';
                 bracketBtn.style.cssText =
                     'width: auto; margin-top: 10px; font-size: 1rem; padding: 8px 20px; background: #6c5ce7; color: #fff;';
-                bracketBtn.innerHTML = '<i class="fas fa-trophy"></i> Back to Bracket';
+                bracketBtn.innerHTML = '<i class="ph ph-trophy"></i> Back to Bracket';
                 bracketBtn.onclick = function () {
                     resetBattleState();
                     inTourneyMatch = false;

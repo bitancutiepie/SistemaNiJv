@@ -511,7 +511,7 @@ window.showAnnouncementPopup = async function (data) {
         timerHtml = `
             <div style="display:flex; align-items:center; gap:8px; margin-top:8px; padding-top:8px; border-top:1px dashed rgba(0,0,0,0.1);">
                 <span style="white-space:nowrap; font-family:'Patrick Hand'; font-size:0.8rem; font-weight:700; color:${severityClass === 'low' ? '#d63031' : severityClass === 'mid' ? '#e17055' : '#0984e3'}">
-                    <i class="fas fa-hourglass-half"></i> ${timerLabel}
+                    <i class="ph ph-hourglass-medium"></i> ${timerLabel}
                 </span>
                 <div style="flex:1; height:4px; background:#e9ecef; border-radius:3px; overflow:hidden;">
                     <div style="height:100%; width:${percentRemaining}%; background:${severityClass === 'low' ? '#d63031' : severityClass === 'mid' ? '#fdcb6e' : '#0984e3'}; border-radius:3px;"></div>
@@ -570,14 +570,14 @@ window.showAnnouncementPopup = async function (data) {
             <button onclick="document.getElementById('announcement-overlay').style.display='none'; document.getElementById('announcement-overlay').innerHTML='';" 
                     style="position: absolute; top: 10px; right: 10px; background: none; border: none; font-size: 1.5rem; cursor: pointer; color: #000; transition: transform 150ms ease-out;"
                     onmouseover="this.style.transform='scale(1.2)'" onmouseout="this.style.transform='scale(1)'">
-                <i class="fas fa-times"></i>
+                <i class="ph ph-x"></i>
             </button>
 
             <div style="display: flex; align-items: center; gap: 15px; margin-bottom: 15px; border-bottom: 2px solid #000; padding-bottom: 12px;">
                 <img src="${avatar}" style="width: 48px; height: 48px; border: 2px solid #000; border-radius: 50%; background: #fff; object-fit: cover;">
                 <div style="flex:1;">
                     <h2 style="margin: 0; font-family: 'Permanent Marker', cursive; font-size: 1.3rem; color: #000; line-height:1.2;">
-                        <i class="fas fa-bullhorn" style="color:#0984e3;"></i> Announcement
+                        <i class="ph ph-megaphone" style="color:#0984e3;"></i> Announcement
                     </h2>
                     <p style="margin: 2px 0 0 0; font-style: italic; font-size: 0.9rem; color: #636e72; font-family: 'Patrick Hand';">from ${admin_name}</p>
                     ${timerHtml}
@@ -592,7 +592,7 @@ window.showAnnouncementPopup = async function (data) {
 
                 <!-- Comment Section Wrapper -->
                 <div style="border-top: 1px solid #e9ecef; padding-top: 15px;">
-                    <h4 style="margin: 0 0 10px 0; font-family: 'Permanent Marker'; font-size: 1rem; color: #0984e3;"><i class="fas fa-comments"></i> Reactions</h4>
+                    <h4 style="margin: 0 0 10px 0; font-family: 'Permanent Marker'; font-size: 1rem; color: #0984e3;"><i class="ph ph-chats-circle"></i> Reactions</h4>
                     <div id="comment-list-${id}" style="display: flex; flex-direction: column; gap: 8px; margin-bottom: 15px;">
                         <p style="font-style: italic; color: #636e72; font-family: 'Patrick Hand'; font-size:0.9rem;">Loading comments...</p>
                     </div>
@@ -891,7 +891,7 @@ window.triggerGlobalShock = function (senderName) {
         `;
         overlay.appendChild(label);
     }
-    label.innerHTML = `<i class="fas fa-ghost"></i> SCARE SENT BY: ${senderName.toUpperCase()}`;
+    label.innerHTML = `<i class="ph ph-ghost"></i> SCARE SENT BY: ${senderName.toUpperCase()}`;
     label.classList.remove('hidden');
 
     setTimeout(() => {
@@ -905,3 +905,25 @@ window.triggerGlobalShock = function (senderName) {
         }
     }, 1500);
 };
+
+// Live Interactive Clay Background (Cursor Parallax)
+document.addEventListener('DOMContentLoaded', () => {
+    if (document.querySelector('.clay-bg-layer')) return;
+    const layer = document.createElement('div');
+    layer.className = 'clay-bg-layer';
+    layer.innerHTML = '<div class="clay-blob clay-blob-1"></div><div class="clay-blob clay-blob-2"></div><div class="clay-blob clay-blob-3"></div>';
+    document.body.prepend(layer);
+
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    let raf = null;
+    window.addEventListener('mousemove', (e) => {
+        if (raf) return;
+        raf = requestAnimationFrame(() => {
+            const mx = (e.clientX / window.innerWidth - 0.5) * 2;
+            const my = (e.clientY / window.innerHeight - 0.5) * 2;
+            document.documentElement.style.setProperty('--mx', mx.toFixed(3));
+            document.documentElement.style.setProperty('--my', my.toFixed(3));
+            raf = null;
+        });
+    }, { passive: true });
+});

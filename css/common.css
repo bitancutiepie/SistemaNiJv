@@ -17,8 +17,8 @@
     --color-border-strong: #2d3436;
 
     /* Typography */
-    --font-body: 'Outfit', sans-serif;
-    --font-accent: 'Patrick Hand', cursive;
+    --font-body: 'Fredoka', sans-serif;
+    --font-accent: 'Fredoka', sans-serif;
     --font-size-xs: 0.75rem;
     --font-size-sm: 0.875rem;
     --font-size-base: 1rem;
@@ -35,17 +35,27 @@
     --space-xl: 32px;
     --space-2xl: 48px;
 
-    /* Border Radii */
-    --radius-sm: 6px;
-    --radius-md: 10px;
-    --radius-lg: 12px;
-    --radius-sketchy: 255px 15px 225px 15px / 15px 225px 15px 255px;
+    /* Border Radii (3D Claymorphism) */
+    --radius-sm: 14px;
+    --radius-md: 20px;
+    --radius-lg: 28px;
+    --radius-pill: 9999px;
+    --radius-sketchy: 28px;
 
-    /* Shadows */
-    --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.06);
-    --shadow-md: 0 2px 8px rgba(0, 0, 0, 0.08);
-    --shadow-lg: 0 4px 16px rgba(0, 0, 0, 0.1);
-    --shadow-offset: 3px 3px 0 #000;
+    /* Shadows (3D Clay Surface Formula) */
+    --shadow-sm:
+        0 8px 18px -4px rgba(30, 32, 40, 0.12),
+        inset 3px 3px 6px rgba(255, 255, 255, 0.8),
+        inset -3px -3px 6px rgba(0, 0, 0, 0.1);
+    --shadow-md:
+        0 14px 28px -6px rgba(30, 32, 40, 0.14),
+        inset 4px 4px 8px rgba(255, 255, 255, 0.8),
+        inset -4px -4px 8px rgba(0, 0, 0, 0.12);
+    --shadow-lg:
+        0 20px 38px -8px rgba(30, 32, 40, 0.18),
+        inset 5px 5px 10px rgba(255, 255, 255, 0.85),
+        inset -5px -5px 10px rgba(0, 0, 0, 0.14);
+    --shadow-offset: var(--shadow-md);
 
     /* Easing (from emil-design-eng) */
     --ease-out: cubic-bezier(0.23, 1, 0.32, 1);
@@ -118,6 +128,263 @@
     to {
         transform: translateY(0);
         opacity: 1;
+    }
+}
+
+/* --- REUSABLE CLAYMORPHISM UTILITIES --- */
+.clay-card {
+    background: var(--color-surface);
+    border: 2px solid var(--color-border-strong);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-md);
+}
+
+.clay-btn {
+    border: 2px solid var(--color-border-strong);
+    border-radius: var(--radius-md);
+    box-shadow: var(--shadow-sm);
+    transition:
+        transform var(--transition-fast),
+        box-shadow var(--transition-fast);
+}
+
+.clay-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-md);
+}
+
+.clay-btn:active {
+    transform: translateY(1px);
+    box-shadow: inset 0 2px 6px rgba(45, 52, 54, 0.18);
+}
+
+.clay-input {
+    background: var(--color-surface);
+    border: 2px solid var(--color-border-strong);
+    border-radius: var(--radius-md);
+    box-shadow: inset 0 2px 5px rgba(45, 52, 54, 0.08);
+}
+
+/* --- GLOBAL 3D CLAYMORPHISM & PHYSICS MOTION --- */
+@keyframes clayDropIn {
+    from {
+        opacity: 0;
+        transform: perspective(900px) scale(0.88) translateY(24px) rotateX(8deg);
+    }
+    to {
+        opacity: 1;
+        transform: perspective(900px) scale(1) translateY(0) rotateX(0);
+    }
+}
+
+.card,
+.widget,
+.modal-content,
+.auth-card,
+.login-card,
+.schedule-card,
+.resource-card,
+.stat-card,
+.admin-section {
+    border-radius: var(--radius-lg) !important;
+    border: 1px solid rgba(255, 255, 255, 0.5) !important;
+    box-shadow: var(--shadow-md) !important;
+    animation: clayDropIn 0.55s cubic-bezier(0.34, 1.56, 0.64, 1) both;
+    transition:
+        transform 0.32s cubic-bezier(0.34, 1.56, 0.64, 1),
+        box-shadow 0.25s ease;
+}
+
+.card:hover,
+.widget:hover,
+.schedule-card:hover,
+.resource-card:hover,
+.stat-card:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-lg) !important;
+}
+
+button,
+.btn,
+.nav-tab,
+.tab-btn {
+    border-radius: var(--radius-pill) !important;
+    border: 1.5px solid rgba(30, 32, 40, 0.28);
+    box-shadow: var(--shadow-sm);
+    transition:
+        transform 0.32s cubic-bezier(0.34, 1.56, 0.64, 1),
+        box-shadow 0.22s ease;
+}
+
+button:hover:not(:disabled),
+.btn:hover:not(:disabled),
+.nav-tab:hover,
+.tab-btn:hover {
+    transform: translateY(-5px) scale(1.04);
+    box-shadow: var(--shadow-lg);
+}
+
+button:active:not(:disabled),
+.btn:active:not(:disabled),
+.nav-tab:active,
+.tab-btn:active {
+    transform: scaleX(1.04) scaleY(0.92);
+    transition-duration: 0.08s;
+    box-shadow:
+        inset 4px 4px 10px rgba(0, 0, 0, 0.16),
+        inset -3px -3px 8px rgba(255, 255, 255, 0.6);
+}
+
+input:not([type="checkbox"]):not([type="radio"]),
+select,
+textarea {
+    border-radius: var(--radius-md) !important;
+    border: 1px solid rgba(255, 255, 255, 0.6);
+    box-shadow:
+        inset 3px 3px 7px rgba(30, 32, 40, 0.1),
+        inset -3px -3px 7px rgba(255, 255, 255, 0.85);
+}
+
+/* --- CLAY POLISH: BADGES, MODAL BLUR, FOCUS RINGS, SCROLLBARS --- */
+.badge,
+.tag,
+.status-badge {
+    border-radius: 999px !important;
+    box-shadow:
+        0 3px 8px rgba(45, 52, 54, 0.1),
+        inset 0 2px 3px rgba(255, 255, 255, 0.8);
+}
+
+.modal {
+    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
+}
+
+:focus-visible {
+    outline: 3px solid var(--color-accent);
+    outline-offset: 2px;
+}
+
+::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+}
+
+::-webkit-scrollbar-track {
+    background: var(--color-bg);
+    border-radius: 999px;
+}
+
+::-webkit-scrollbar-thumb {
+    background: var(--color-border);
+    border-radius: 999px;
+    border: 2px solid var(--color-bg);
+}
+
+/* --- UI/UX ORGANIZATION: SPACING, STICKY HEADER, BUTTON HIERARCHY --- */
+.card,
+.widget,
+.admin-section {
+    padding: var(--space-lg);
+}
+
+header,
+.top-nav,
+.navbar {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+}
+
+.btn-primary {
+    background: var(--color-accent);
+    color: #fff;
+}
+
+.btn-secondary {
+    background: var(--color-surface);
+    color: var(--color-text);
+}
+
+/* Single readable font across UI (excluding icon fonts) */
+body,
+body *:not(.ph):not([class^="ph-"]):not([class*=" ph-"]):not(i) {
+    font-family: var(--font-body) !important;
+}
+
+/* Remove pulsing green dots globally */
+.online-dot,
+.status-dot,
+.live-dot,
+.pulse-dot {
+    display: none !important;
+    animation: none !important;
+}
+
+/* Semi-3D Claymorphism Icon Polish */
+.ph,
+[class^="ph-"],
+[class*=" ph-"] {
+    filter: drop-shadow(0 2px 3px rgba(45, 52, 54, 0.22)) drop-shadow(0 -1px 0 rgba(255, 255, 255, 0.65));
+    vertical-align: middle;
+}
+
+/* --- LIVE INTERACTIVE CLAY BACKGROUND --- */
+.clay-bg-layer {
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 0;
+    overflow: hidden;
+}
+
+.clay-blob {
+    position: absolute;
+    border-radius: 50%;
+    opacity: 0.35;
+    filter: blur(2px);
+    box-shadow:
+        inset 6px 6px 14px rgba(255, 255, 255, 0.8),
+        inset -6px -6px 14px rgba(0, 0, 0, 0.08);
+    transition: transform 0.35s cubic-bezier(0.23, 1, 0.32, 1);
+    animation: floatBlob 14s ease-in-out infinite alternate;
+}
+
+.clay-blob-1 {
+    width: 260px;
+    height: 260px;
+    background: #ffd8be;
+    top: -60px;
+    left: -40px;
+    transform: translate(calc(var(--mx, 0) * 18px), calc(var(--my, 0) * 18px));
+}
+
+.clay-blob-2 {
+    width: 320px;
+    height: 320px;
+    background: #c8e7ff;
+    bottom: -80px;
+    right: -60px;
+    animation-delay: -5s;
+    transform: translate(calc(var(--mx, 0) * -24px), calc(var(--my, 0) * -24px));
+}
+
+.clay-blob-3 {
+    width: 200px;
+    height: 200px;
+    background: #d8f3dc;
+    top: 45%;
+    right: 12%;
+    animation-delay: -9s;
+    transform: translate(calc(var(--mx, 0) * 14px), calc(var(--my, 0) * -14px));
+}
+
+@keyframes floatBlob {
+    0% { margin-top: 0px; }
+    100% { margin-top: 22px; }
+}
     }
 }
 

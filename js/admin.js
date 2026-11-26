@@ -172,7 +172,7 @@ window.uploadFile = async function (e) {
     if (!termInput || !termInput.value) return showToast('Please select a term (Prelims / Midterms / Finals).');
 
     btn.disabled = true;
-    btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Uploading...';
+    btn.innerHTML = '<i class="ph ph-spinner ph-spin"></i> Uploading...';
 
     try {
         const compressedFile = await compressImage(file, 1500, 1500, 0.8);
@@ -216,7 +216,7 @@ window.uploadFile = async function (e) {
         showToast('Upload failed: ' + error.message);
     } finally {
         btn.disabled = false;
-        btn.innerHTML = '<i class="fas fa-paperclip"></i> Upload to Cabinet';
+        btn.innerHTML = '<i class="ph ph-paperclip"></i> Upload to Cabinet';
     }
 };
 
@@ -552,7 +552,7 @@ window.quickAddAnnouncement = async function () {
     box.innerHTML = `
         <div style="text-align:left; position:relative;">
             <h2 style="margin:0 0 10px 0; font-family:'Patrick Hand'; font-size:1.8rem;">
-                <i class="fas fa-bullhorn" style="color:#d63031;"></i> Quick Broadcast
+                <i class="ph ph-megaphone" style="color:#d63031;"></i> Quick Broadcast
             </h2>
             <p style="font-family:'Patrick Hand'; color:#666; font-size:1rem; margin-bottom:15px;">
                 Type your message and set the duration:
@@ -599,7 +599,7 @@ window.quickAddAnnouncement = async function () {
         }
 
         btn.disabled = true;
-        btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Sending...';
+        btn.innerHTML = '<i class="ph ph-spinner ph-spin"></i> Sending...';
 
         await window.performBroadcast(msg, dur, btn);
         overlay.remove();
@@ -612,7 +612,7 @@ window.performBroadcast = async function (message, duration, btn = null) {
     const originalBtnHtml = btn ? btn.innerHTML : '';
     if (btn) {
         btn.disabled = true;
-        btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Connecting...';
+        btn.innerHTML = '<i class="ph ph-spinner ph-spin"></i> Connecting...';
     }
 
     try {
@@ -638,7 +638,7 @@ window.performBroadcast = async function (message, duration, btn = null) {
         if (dbError) throw dbError;
         const announcementId = dbData[0].id;
 
-        if (btn) btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Broadcasting...';
+        if (btn) btn.innerHTML = '<i class="ph ph-spinner ph-spin"></i> Broadcasting...';
 
         const payload = {
             id: announcementId,
@@ -673,7 +673,7 @@ window.performBroadcast = async function (message, duration, btn = null) {
     } finally {
         if (btn) {
             btn.disabled = false;
-            btn.innerHTML = originalBtnHtml || '<i class="fas fa-broadcast-tower"></i> BROADCAST NOW';
+            btn.innerHTML = originalBtnHtml || '<i class="ph ph-broadcast"></i> BROADCAST NOW';
         }
     }
 };
@@ -781,7 +781,7 @@ window.fetchWordlePool = async function () {
             (w) => `
         <div style="background:white; border:2px solid #000; padding:5px 10px; display:flex; align-items:center; gap:8px; font-family:'Permanent Marker'; box-shadow:2px 2px 0 #000;">
             <span>${escapeHTML(w.content)}</span>
-            <i class="fas fa-times" onclick="window.deleteWordleWord('${w.id}')" style="color:#d63031; cursor:pointer;" title="Delete"></i>
+            <i class="ph ph-x" onclick="window.deleteWordleWord('${w.id}')" style="color:#d63031; cursor:pointer;" title="Delete"></i>
         </div>
     `,
         )
@@ -1021,7 +1021,7 @@ window.loadAdminSectionManager = async function () {
         rosterHtml += `
             <div class="class-card" style="margin-bottom: 12px; border-left: 5px solid #6c5ce7; background: #fff; text-align: left;">
                 <div style="display:flex; justify-content:space-between; align-items:center; border-bottom: 1px dashed #ccc; padding-bottom: 5px; margin-bottom: 8px;">
-                    <h4 style="margin: 0; color: #2d3436;"><i class="fas fa-layer-group"></i> Block / Section: <b>${escapeHTML(sec)}</b> (${list.length} students)</h4>
+                    <h4 style="margin: 0; color: #2d3436;"><i class="ph ph-stack"></i> Block / Section: <b>${escapeHTML(sec)}</b> (${list.length} students)</h4>
                     <div style="display:flex; gap:5px;">
                         <button onclick="window.loadSchedule('All', '${escapeHTML(sec)}'); showToast('Loaded ${escapeHTML(sec)} schedule');" class="sketch-btn" style="padding: 3px 8px; font-size: 0.8rem; background: #0984e3; color: #fff;">View Schedule</button>
                         <button onclick="window.deleteSectionSchedule('${escapeHTML(sec)}')" class="sketch-btn danger" style="padding: 3px 8px; font-size: 0.8rem;" title="Delete all classes for this section">Delete Sched</button>

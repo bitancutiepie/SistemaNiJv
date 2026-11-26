@@ -126,29 +126,63 @@ html {
     z-index: 15;
 }
 
-.tab-btn {
-    width: 130px;
-    /* Slightly narrower to reduce overlap chance */
-    padding: 12px 10px 12px 25px;
-    font-family: 'Permanent Marker', cursive;
-    font-size: 1rem;
-    border: none;
-    cursor: pointer;
-    text-align: left;
-    transition: transform 0.2s ease;
-    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
-    clip-path: polygon(0% 0%, 95% 0%, 100% 50%, 95% 100%, 0% 100%);
-    position: relative;
-    transform: rotate(var(--tab-rotate, 0deg));
+@keyframes tabPopIn {
+    from {
+        opacity: 0;
+        transform: translateX(-30px) scale(0.9);
+    }
+    to {
+        opacity: 1;
+        transform: rotate(var(--tab-rotate, 0deg));
+    }
 }
 
+.tab-btn {
+    width: 142px;
+    padding: 12px 16px 12px 22px;
+    font-family: var(--font-body);
+    font-weight: 700;
+    font-size: 0.92rem;
+    border: 1.5px solid rgba(30, 32, 40, 0.28) !important;
+    border-radius: 14px 9999px 9999px 14px !important;
+    cursor: pointer;
+    text-align: left;
+    transition:
+        transform 0.32s cubic-bezier(0.34, 1.56, 0.64, 1),
+        box-shadow 0.25s ease;
+    box-shadow:
+        0 14px 28px -6px rgba(30, 32, 40, 0.18),
+        inset 4px 4px 8px rgba(255, 255, 255, 0.7),
+        inset -4px -4px 8px rgba(0, 0, 0, 0.14);
+    position: relative;
+    transform: rotate(var(--tab-rotate, 0deg));
+    animation: tabPopIn 0.45s cubic-bezier(0.34, 1.56, 0.64, 1) both;
+}
+
+.tab-btn:nth-child(1) { animation-delay: 45ms; }
+.tab-btn:nth-child(2) { animation-delay: 90ms; }
+.tab-btn:nth-child(3) { animation-delay: 135ms; }
+.tab-btn:nth-child(4) { animation-delay: 180ms; }
+.tab-btn:nth-child(5) { animation-delay: 225ms; }
+.tab-btn:nth-child(6) { animation-delay: 270ms; }
+.tab-btn:nth-child(7) { animation-delay: 315ms; }
+.tab-btn:nth-child(8) { animation-delay: 360ms; }
+.tab-btn:nth-child(9) { animation-delay: 405ms; }
+
 .tab-btn:hover {
-    transform: rotate(var(--tab-rotate, 0deg)) translateX(10px);
+    transform: rotate(var(--tab-rotate, 0deg)) translateX(10px) scale(1.04);
+    box-shadow:
+        0 18px 34px -6px rgba(30, 32, 40, 0.24),
+        inset 4px 4px 8px rgba(255, 255, 255, 0.8),
+        inset -4px -4px 8px rgba(0, 0, 0, 0.14);
 }
 
 .tab-btn.active {
-    transform: rotate(var(--tab-rotate, 0deg)) translateX(15px);
-    box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.1);
+    transform: rotate(var(--tab-rotate, 0deg)) translateX(14px) scale(1.06);
+    box-shadow:
+        0 20px 38px -6px rgba(30, 32, 40, 0.28),
+        inset 5px 5px 10px rgba(255, 255, 255, 0.85),
+        inset -4px -4px 8px rgba(0, 0, 0, 0.12);
 }
 
 /* Tab Colors */
@@ -726,19 +760,52 @@ h2:hover {
 
     .tab-btn {
         width: auto;
-        padding: 10px 20px;
-        font-size: 1rem;
+        padding: 10px 18px;
+        font-size: 0.9rem;
         clip-path: none;
-        border-radius: 5px;
+        border-radius: 999px !important;
         flex-shrink: 0;
         margin-bottom: 0;
-        box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+        transform: none !important;
     }
 
     .paper-content {
-        padding: 20px 15px;
+        padding: 20px 14px;
         background-size: 100% 30px;
         border-left: none;
+        width: 100%;
+        box-sizing: border-box;
+        overflow-x: hidden;
+    }
+
+    .schedule-grid,
+    .resource-grid,
+    .stats-grid,
+    .card-grid,
+    .admin-grid {
+        grid-template-columns: 1fr !important;
+        gap: var(--space-md) !important;
+    }
+
+    .card,
+    .widget,
+    .schedule-card,
+    .resource-card,
+    .stat-card,
+    .admin-section {
+        width: 100%;
+        box-sizing: border-box;
+        padding: var(--space-md) !important;
+        overflow-wrap: break-word;
+        word-break: break-word;
+    }
+
+    .card-header,
+    .card-actions,
+    .schedule-item,
+    .resource-item {
+        flex-wrap: wrap;
+        gap: var(--space-sm);
     }
 
     .paper-content::before {
@@ -2933,6 +3000,235 @@ h2:hover {
 /* UNSLOP POLISH - binder (second page) */
 body{font-variant-numeric:tabular-nums;letter-spacing:0!important}
 .tab-btn i{font-size:14px}
+
+/* --- ONLINE CLASSMATES: FLOATING 3D CLAY PILL BAR --- */
+.online-users-header {
+    background: var(--color-surface);
+    border-radius: 9999px !important;
+    padding: 10px 22px;
+    box-shadow: var(--shadow-md);
+    border: 1px solid rgba(255, 255, 255, 0.6);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 12px;
+}
+
+.online-users-header .online-label {
+    font-weight: 700;
+    margin: 0;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.online-users-header .online-label::before {
+    display: none !important;
+    content: none !important;
+}
+
+.online-users-header .online-dot,
+.online-users-header .status-dot {
+    display: none !important;
+}
+
+.online-users-header img,
+.online-users-header .avatar {
+    border: 3px solid #fff;
+    box-shadow: var(--shadow-sm);
+    transition: transform 0.28s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.online-users-header img:hover,
+.online-users-header .avatar:hover {
+    transform: translateY(-6px) scale(1.15);
+    z-index: 5;
+}
+
+/*
+ * Adapted from Uiverse.io by adamgiebl - https://uiverse.io/adamgiebl/lazy-earwig-25
+ * MIT License, Copyright (c) adamgiebl (Adam Giebl)
+ */
+/* --- GLASSMORPHISM + GRADIENT BLOBS FOR SCHEDULE CARDS --- */
+.schedule-card,
+.class-card {
+    position: relative;
+    overflow: hidden;
+    z-index: 1;
+    background: linear-gradient(rgba(255, 255, 255, 0.58), rgba(245, 245, 245, 0.32)) !important;
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1.5px solid rgba(255, 255, 255, 0.8) !important;
+    border-radius: 21px !important;
+    box-shadow:
+        0 14px 28px -6px rgba(30, 32, 40, 0.14),
+        inset 0 1px 0 rgba(255, 255, 255, 0.85) !important;
+}
+
+.schedule-card::before,
+.class-card::before {
+    content: '';
+    position: absolute;
+    z-index: -1;
+    width: 140px;
+    height: 140px;
+    border-radius: 50%;
+    left: -50px;
+    top: -40px;
+    background: linear-gradient(to bottom, #a17fe0, #59c173);
+    filter: blur(18px);
+    opacity: 0.35;
+    pointer-events: none;
+}
+
+.schedule-card::after,
+.class-card::after {
+    content: '';
+    position: absolute;
+    z-index: -1;
+    width: 140px;
+    height: 140px;
+    border-radius: 50%;
+    right: -50px;
+    bottom: -30px;
+    background: linear-gradient(to bottom right, #54c0ec, #ffa17f);
+    filter: blur(18px);
+    opacity: 0.35;
+    pointer-events: none;
+}
+
+/* --- HORIZONTAL WEEK SCROLLER & SEGMENTED CLAY DOCK --- */
+.schedule-toolbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 16px;
+    flex-wrap: wrap;
+    width: 100%;
+}
+
+.week-dock {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: linear-gradient(rgba(255, 255, 255, 0.58), rgba(245, 245, 245, 0.32));
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1.5px solid rgba(255, 255, 255, 0.8);
+    border-radius: 24px;
+    padding: 8px;
+    box-shadow:
+        0 14px 28px -6px rgba(30, 32, 40, 0.14),
+        inset 0 1px 0 rgba(255, 255, 255, 0.85);
+    overflow-x: auto;
+    max-width: 100%;
+}
+
+.week-dock .sketch-btn {
+    width: 56px;
+    height: 64px;
+    padding: 6px 4px !important;
+    border: none !important;
+    border-radius: 16px !important;
+    background: transparent !important;
+    box-shadow: none !important;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 2px;
+    position: relative;
+    flex-shrink: 0;
+    transition:
+        transform 220ms cubic-bezier(0.34, 1.56, 0.64, 1),
+        background 180ms ease,
+        box-shadow 220ms ease;
+}
+
+.week-dock .sketch-btn:hover:not(.active) {
+    background: rgba(255, 255, 255, 0.65) !important;
+    transform: translateY(-2px);
+    box-shadow: none !important;
+}
+
+.week-dock .cal-top {
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    color: #64748b;
+    background: transparent !important;
+    box-shadow: none !important;
+    padding: 0;
+}
+
+.week-dock .cal-body {
+    font-size: 18px;
+    font-weight: 700;
+    color: #1e293b;
+}
+
+.week-dock .sketch-btn.is-today::after {
+    content: '';
+    position: absolute;
+    bottom: 5px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 5px;
+    height: 5px;
+    border-radius: 50%;
+    background: #10b981;
+}
+
+.week-dock .sketch-btn.active {
+    background: linear-gradient(135deg, #4f46e5, #6366f1) !important;
+    transform: translateY(-4px) scale(1.06);
+    box-shadow:
+        inset 2px 2px 5px rgba(255, 255, 255, 0.5),
+        inset -2px -2px 6px rgba(0, 0, 0, 0.22),
+        0 10px 20px -4px rgba(79, 70, 229, 0.5) !important;
+}
+
+.week-dock .sketch-btn.active .cal-top,
+.week-dock .sketch-btn.active .cal-body {
+    color: #fff !important;
+}
+
+.block-clay-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    background: linear-gradient(rgba(255, 255, 255, 0.58), rgba(245, 245, 245, 0.32));
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1.5px solid rgba(255, 255, 255, 0.8) !important;
+    border-radius: 16px;
+    padding: 10px 16px;
+    box-shadow:
+        0 14px 28px -6px rgba(30, 32, 40, 0.14),
+        inset 0 1px 0 rgba(255, 255, 255, 0.85);
+}
+
+.block-clay-pill .block-label {
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: #64748b;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.block-clay-pill select {
+    border: none !important;
+    box-shadow: none !important;
+    background: transparent;
+    font-weight: 700;
+    font-size: 0.95rem;
+    color: #1e293b;
+    cursor: pointer;
+    outline: none;
+    padding: 0 4px;
+}
 #recent-announcements-panel h3{text-decoration:none!important;font-weight:600}
 #live-clock{font-weight:700;font-variant-numeric:tabular-nums}
 .online-label{font-size:12px;text-transform:none;color:var(--color-text-secondary);font-weight:600}

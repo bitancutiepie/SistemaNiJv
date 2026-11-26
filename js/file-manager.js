@@ -48,7 +48,7 @@ window.openFilePreview = async function (url, title, fileId) {
 
     const loaderHtml = `
                 <div id="previewLoader" style="display:flex; flex-direction:column; align-items:center; justify-content:center; height:100%; color:#555;">
-                    <i class="fas fa-spinner fa-spin" style="font-size:3rem;"></i>
+                    <i class="ph ph-spinner ph-spin" style="font-size:3rem;"></i>
                     <p style="font-family:'Patrick Hand'; font-size:1.5rem; margin-top:10px;">Unfolding paper...</p>
                 </div>
             `;
@@ -64,7 +64,7 @@ window.openFilePreview = async function (url, title, fileId) {
     } else {
         contentHtml = `
                     <div style="display:flex; flex-direction:column; align-items:center; justify-content:center; height:100%; text-align:center;">
-                        <i class="fas fa-file-download" style="font-size:4rem; margin-bottom:20px;"></i>
+                        <i class="ph ph-file-arrow-down" style="font-size:4rem; margin-bottom:20px;"></i>
                         <p>Preview not available for this file type.</p>
                         <a href="${url}" target="_blank" download class="preview-modal-btn" style="background:#000; color:#fff; padding:10px 20px; text-decoration:none; border: 2px solid #000; border-radius: 255px 15px 225px 15px / 15px 225px 15px 255px; font-family: 'Patrick Hand';">Download File</a>
                     </div>
@@ -75,15 +75,15 @@ window.openFilePreview = async function (url, title, fileId) {
                 <div id="filePreviewModal" class="file-preview-overlay">
                     <div class="file-preview-box">
                         <div class="preview-header">
-                            <h3><i class="fas fa-eye"></i> ${escapeHTML(title)}</h3>
+                            <h3><i class="ph ph-eye"></i> ${escapeHTML(title)}</h3>
                             <div class="preview-actions">
                                 <a href="${url}" target="_blank" download style="text-decoration:none;">
                                     <button class="sketch-btn" style="background:#0984e3; color:#fff; padding: 8px 15px; margin:0;" title="Download">
-                                        <i class="fas fa-download"></i> <span class="hide-mobile">DOWNLOAD</span>
+                                        <i class="ph ph-download-simple"></i> <span class="hide-mobile">DOWNLOAD</span>
                                     </button>
                                 </a>
                                 <button class="sketch-btn danger" onclick="document.getElementById('filePreviewModal').remove()" style="padding: 8px 15px; margin:0;">
-                                    <i class="fas fa-times"></i> <span class="hide-mobile">CLOSE</span>
+                                    <i class="ph ph-x"></i> <span class="hide-mobile">CLOSE</span>
                                 </button>
                             </div>
                         </div>
@@ -105,7 +105,7 @@ window.filePreviewError = function () {
     const loader = document.getElementById('previewLoader');
     if (loader) {
         loader.innerHTML =
-            '<i class="fas fa-exclamation-triangle" style="font-size:2.5rem;"></i><p style="font-family:\'Patrick Hand\'; font-size:1.3rem; margin-top:10px;">Could not load preview. Try Download instead.</p>';
+            '<i class="ph ph-warning" style="font-size:2.5rem;"></i><p style="font-family:\'Patrick Hand\'; font-size:1.3rem; margin-top:10px;">Could not load preview. Try Download instead.</p>';
     }
     showToast('Preview failed to load.', 'error');
 };
@@ -120,7 +120,7 @@ window.viewFileHistory = async function (fileId, title) {
     overlay.id = 'viewer-log-modal';
     overlay.innerHTML = `
                 <div class="wimpy-modal-box" style="max-width:400px; text-align:left;">
-                    <h2 style="margin-top:0;"><i class="fas fa-eye"></i> Unique Viewers</h2>
+                    <h2 style="margin-top:0;"><i class="ph ph-eye"></i> Unique Viewers</h2>
                     <p style="font-size:0.9rem; color:#666; margin-top:-10px; font-family:'Patrick Hand';">File: ${title}</p>
                     <div id="viewer-list" style="max-height:300px; overflow-y:auto; margin:15px 0;">
                         <div class="loader">Checking the paper trail...</div>
@@ -271,43 +271,43 @@ window.renderFileList = function (files) {
                 : '';
 
             // Better Icon Logic
-            let iconClass = 'fa-file';
+            let iconClass = 'ph-file';
             let iconColor = '#2f3542';
             const fType = (file.file_type || '').toLowerCase();
             if (fType.includes('pdf')) {
-                iconClass = 'fa-file-pdf';
+                iconClass = 'ph-file-pdf';
                 iconColor = '#d63031';
             } else if (fType.includes('image')) {
-                iconClass = 'fa-file-image';
+                iconClass = 'ph-file-image';
                 iconColor = '#00b894';
             } else if (fType.includes('word')) {
-                iconClass = 'fa-file-word';
+                iconClass = 'ph-file-doc';
                 iconColor = '#0984e3';
             } else if (fType.includes('ppt')) {
-                iconClass = 'fa-file-powerpoint';
+                iconClass = 'ph-file-ppt';
                 iconColor = '#e17055';
             } else if (fType.includes('video')) {
-                iconClass = 'fa-file-video';
+                iconClass = 'ph-file-video';
                 iconColor = '#6c5ce7';
             }
 
             const deleteBtn = isAdmin
-                ? `<button onclick="event.stopPropagation(); deleteFile('${file.id}')" class="sketch-icon-btn" title="Delete File" style="margin-right:auto;"><i class="fas fa-trash" style="color:#d63031;"></i></button>`
+                ? `<button onclick="event.stopPropagation(); deleteFile('${file.id}')" class="sketch-icon-btn" title="Delete File" style="margin-right:auto;"><i class="ph ph-trash" style="color:#d63031;"></i></button>`
                 : '';
 
             return `
                 <div class="file-card-mini" onclick="openFilePreview('${safeUrl}', '${safeTitle}', '${file.id}')" style="animation-delay: ${Math.random() * 0.3}s;">
                     <div class="file-card-top" style="background:${iconColor}15; border-bottom: 2px dashed ${iconColor}40; padding:8px 12px; margin:-12px -12px 10px -12px; border-radius:9px 9px 0 0; display:flex; align-items:center; justify-content:space-between;">
                         <div style="display:flex; align-items:center; gap:6px;">
-                            <i class="fas ${iconClass}" style="color:${iconColor}; font-size:0.85rem;"></i>
+                            <i class="ph ${iconClass}" style="color:${iconColor}; font-size:0.85rem;"></i>
                             <span style="color:${iconColor}; font-weight:bold; font-size:0.75rem; text-transform:uppercase; letter-spacing:0.5px;">${displaySubject} • ${displayTerm}</span>
                             ${badgeHtml}
                         </div>
-                        <span style="font-size:0.7rem; color:#999;"><i class="fas fa-clock"></i> ${timeAgo ? timeAgo(file.created_at) : createdAt.toLocaleDateString()}</span>
+                        <span style="font-size:0.7rem; color:#999;"><i class="ph ph-clock"></i> ${timeAgo ? timeAgo(file.created_at) : createdAt.toLocaleDateString()}</span>
                     </div>
                     <div class="file-card-body" style="display:flex; align-items:flex-start; gap:12px;">
                         <div class="file-icon-box" style="border-color: ${iconColor}; color: ${iconColor};">
-                            <i class="fas ${iconClass}"></i>
+                            <i class="ph ${iconClass}"></i>
                         </div>
                         <div class="file-info-main">
                             <div class="file-title-text">${displayTitle}</div>
@@ -315,9 +315,9 @@ window.renderFileList = function (files) {
                     </div>
                     <div class="file-card-footer">
                         ${deleteBtn}
-                        <button onclick="event.stopPropagation(); viewFileHistory('${file.id}', '${safeTitle}')" class="sketch-icon-btn" title="See who viewed this"><i class="fas fa-eye" style="color:#fdcb6e;"></i></button>
-                        <button onclick="event.stopPropagation(); copyToClipboard('${safeUrl}')" class="sketch-icon-btn" title="Copy Link"><i class="fas fa-link" style="color:#636e72;"></i></button>
-                        <button class="sketch-icon-btn" title="Open File"><i class="fas fa-external-link-alt" style="color:#0984e3;"></i></button>
+                        <button onclick="event.stopPropagation(); viewFileHistory('${file.id}', '${safeTitle}')" class="sketch-icon-btn" title="See who viewed this"><i class="ph ph-eye" style="color:#fdcb6e;"></i></button>
+                        <button onclick="event.stopPropagation(); copyToClipboard('${safeUrl}')" class="sketch-icon-btn" title="Copy Link"><i class="ph ph-link" style="color:#636e72;"></i></button>
+                        <button class="sketch-icon-btn" title="Open File"><i class="ph ph-arrow-square-out" style="color:#0984e3;"></i></button>
                     </div>
                 </div>`;
         })
@@ -426,9 +426,9 @@ window.renderTermFolders = function () {
     const termGrid = document.getElementById('term-folder-grid');
     if (!termGrid || !window.selectedSubject) return;
     const meta = {
-        Prelims: { color: '#00b894', icon: 'fa-seedling' },
-        Midterms: { color: '#f39c12', icon: 'fa-book-open' },
-        Finals: { color: '#d63031', icon: 'fa-graduation-cap' },
+        Prelims: { color: '#00b894', icon: 'ph-plant' },
+        Midterms: { color: '#f39c12', icon: 'ph-book-open' },
+        Finals: { color: '#d63031', icon: 'ph-graduation-cap' },
     };
     termGrid.innerHTML = window.TERM_LIST.map((term) => {
         const m = meta[term];
@@ -439,7 +439,7 @@ window.renderTermFolders = function () {
         return `
             <div class="subject-folder term-folder${active}" style="--folder-color: ${m.color};" onclick="openTermFolder('${term}', this)">
                 <div style="position:absolute; top:0; left:0; right:0; height:6px; background:${m.color}; border-radius:9px 9px 0 0;"></div>
-                <span class="folder-emoji" style="color:${m.color};"><i class="fas ${m.icon}"></i></span>
+                <span class="folder-emoji" style="color:${m.color};"><i class="ph ${m.icon}"></i></span>
                 <span class="folder-name">${term}</span>
                 <span class="folder-count" id="fc-term-${term}">${count} files</span>
             </div>
@@ -709,13 +709,13 @@ window.showWallpaperPreview = function (dataUrl, filename) {
     });
 
     box.innerHTML = `
-                <h2 style="margin-top:0;"><i class="fas fa-eye"></i> Preview</h2>
+                <h2 style="margin-top:0;"><i class="ph ph-eye"></i> Preview</h2>
                 <div style="flex: 1; overflow: auto; margin-bottom: 15px; border: 2px solid #000; background: #eee; display: flex; justify-content: center; align-items: center; min-height: 200px;">
                     <img src="${dataUrl}" style="max-width: 100%; max-height: 60vh; object-fit: contain; display: block; box-shadow: 0 0 10px rgba(0,0,0,0.1);">
                 </div>
                 <div style="display: flex; gap: 10px; justify-content: center;">
                     <button id="wp-download-btn" class="sketch-btn" style="background: #000; color: #fff; width: auto; padding: 10px 20px;">
-                        <i class="fas fa-download"></i> Download
+                        <i class="ph ph-download-simple"></i> Download
                     </button>
                     <button onclick="document.getElementById('wp-preview-overlay').remove()" class="sketch-btn danger" style="width: auto; padding: 10px 20px;">
                         Close
@@ -742,7 +742,7 @@ window.showWallpaperPreview = function (dataUrl, filename) {
 window.generateWallpaper = async function (width, height, bgStyle, e, customBgData = null) {
     const btn = e.currentTarget;
     const originalText = btn.innerHTML;
-    btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Drawing...';
+    btn.innerHTML = '<i class="ph ph-spinner ph-spin"></i> Drawing...';
     btn.disabled = true;
 
     // 1. Fetch Schedule Data (Monday to Saturday)
@@ -1163,7 +1163,7 @@ window.generateWallpaper = async function (width, height, bgStyle, e, customBgDa
                             <div style="font-weight:bold; font-size:${fontSizeTime}; color:${bgStyle === 'paper' ? '#d63031' : '#ff7675'}">${tStart} - ${tEnd}</div>
                             <div style="font-size:${fontSizeSubj}; line-height:1.1; font-weight:bold; color:${tableColor}">${cls.subject_name}</div>
                             <div style="font-size:${fontSizeProf}; margin-top:5px; color:${bgStyle === 'paper' ? '#2d3436' : footerColor}">
-                                <i class="fas fa-chalkboard-teacher"></i> ${cls.instructor || 'TBA'}
+                                <i class="ph ph-chalkboard-teacher"></i> ${cls.instructor || 'TBA'}
                             </div>
                         `;
                     item.appendChild(leftBox);

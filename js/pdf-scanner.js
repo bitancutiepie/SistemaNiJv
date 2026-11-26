@@ -145,7 +145,7 @@ window.displayExtractedClasses = function (classes) {
         <div class="class-card" style="padding: 10px; border-left: 4px solid #0984e3; background: #fff; margin-bottom: 10px; border-radius: 5px; box-shadow: 2px 2px 5px rgba(0,0,0,0.05);">
             <div style="display:flex; justify-content: space-between;">
                 <strong>${cls.day_of_week}</strong>
-                <button onclick="removeExtracted(${idx})" style="color:red; background:none; border:none; cursor:pointer;"><i class="fas fa-trash"></i></button>
+                <button onclick="removeExtracted(${idx})" style="color:red; background:none; border:none; cursor:pointer;"><i class="ph ph-trash"></i></button>
             </div>
             <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 5px;">
                 <div>

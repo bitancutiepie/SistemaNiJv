@@ -46,12 +46,12 @@ class Minesweeper {
 
     setFaceIcon(type) {
         const iconMap = {
-            smile: 'fa-smile',
-            win: 'fa-laugh-beam',
-            lose: 'fa-dizzy',
-            scared: 'fa-surprise',
+            smile: 'ph-smiley',
+            win: 'ph-smiley-wink',
+            lose: 'ph-smiley-x-eyes',
+            scared: 'ph-smiley-nervous',
         };
-        this.faceBtn.innerHTML = `<i class="fas ${iconMap[type] || 'fa-smile'}"></i>`;
+        this.faceBtn.innerHTML = `<i class="ph ${iconMap[type] || 'ph-smiley'}"></i>`;
     }
 
     loadBestTime() {
@@ -323,7 +323,7 @@ class Minesweeper {
                 const el = this.getCellElement(r, c);
                 if (el.classList.contains('flagged') && this.board[r][c] !== -1) {
                     el.style.background = '#f1f2f6';
-                    el.innerHTML = `<i class="fas fa-times" style="color:#d63031; font-size:1.2rem;"></i>`;
+                    el.innerHTML = `<i class="ph ph-x" style="color:#d63031; font-size:1.2rem;"></i>`;
                 }
             }
         }

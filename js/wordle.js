@@ -205,7 +205,7 @@ class WordleGame {
                 html += `<div class="key ${status}" data-key="${char}">${char}</div>`;
             });
 
-            if (i === 2) html += `<div class="key wide" data-key="BACKSPACE"><i class="fas fa-backspace"></i></div>`;
+            if (i === 2) html += `<div class="key wide" data-key="BACKSPACE"><i class="ph ph-backspace"></i></div>`;
             html += `</div>`;
         });
         return html;

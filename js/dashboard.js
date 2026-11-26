@@ -303,7 +303,7 @@ window.switchGame = function (game, btn) {
     btn.classList.add('active');
 
     if (game === 'wordle') {
-        title.innerHTML = '<i class="fas fa-gamepad"></i> WORDLE';
+        title.innerHTML = '<i class="ph ph-game-controller"></i> WORDLE';
         title.style.background = '#f1c40f';
         title.style.color = '#000';
         wordleSection.classList.remove('hidden');
@@ -311,7 +311,7 @@ window.switchGame = function (game, btn) {
         if (battleSection) battleSection.classList.add('hidden');
         if (window.initWimpyWordle) window.initWimpyWordle();
     } else if (game === 'minesweeper') {
-        title.innerHTML = '<i class="fas fa-bomb"></i> MINESWEEPER';
+        title.innerHTML = '<i class="ph ph-bomb"></i> MINESWEEPER';
         title.style.background = '#e74c3c';
         title.style.color = '#000';
         wordleSection.classList.add('hidden');
@@ -444,28 +444,28 @@ async function loadSchedule(dayFilter, sectionFilter) {
                 isSafeHttpUrl(cls.meet_link) && typeof navigator !== 'undefined' && navigator.clipboard
                     ? `<button data-meet-link="${escapeHTML(cls.meet_link)}" onclick="event.stopPropagation(); navigator.clipboard.writeText(this.dataset.meetLink).then(()=>showToast('Link Copied!'))"
              class="sketch-btn" style="border-color:#555; color:#555; padding: 8px 12px;" title="Copy Link">
-             <i class="fas fa-copy"></i>
+             <i class="ph ph-copy"></i>
              </button>`
                     : '';
 
             return `
             <div class="class-card" style="animation-delay: ${index * 0.1}s; ${isAdmin ? 'border-style: solid; border-width: 2px;' : ''}">
                 ${deleteBtn}
+                <h3 style="margin:0 0 6px 0;">${escapeHTML(cls.subject_name)}</h3>
                 <div class="class-header">
                     <span class="subject-code">${escapeHTML(cls.subject_code)} <small style="background:#6c5ce7; color:#fff; padding:1px 6px; border-radius:4px; font-size:0.75rem; border:1px solid #000;">${escapeHTML(classSec)}</small></span>
                     <span class="time-badge">${start12h} - ${end12h}</span>
                 </div>
-                <h3>${escapeHTML(cls.subject_name)}</h3>
                 <p><b>Teacher:</b> ${escapeHTML(cls.instructor || 'TBA')} | <b>Room:</b> ${escapeHTML(cls.room || 'TBA')}</p>
                 <div style="margin-top:10px; display:flex; flex-wrap:wrap; gap:8px;">
-                    ${isSafeHttpUrl(cls.meet_link) ? `<a href="${escapeHTML(cls.meet_link)}" target="_blank" rel="noopener" class="sketch-btn meet"><i class="fas fa-video"></i> Meet</a>` : ''}
-                    ${isSafeHttpUrl(cls.classroom_link) ? `<a href="${escapeHTML(cls.classroom_link)}" target="_blank" rel="noopener" class="sketch-btn classroom"><i class="fas fa-chalkboard"></i> Class</a>` : ''}
+                    ${isSafeHttpUrl(cls.meet_link) ? `<a href="${escapeHTML(cls.meet_link)}" target="_blank" rel="noopener" class="sketch-btn meet"><i class="ph ph-video-camera"></i> Meet</a>` : ''}
+                    ${isSafeHttpUrl(cls.classroom_link) ? `<a href="${escapeHTML(cls.classroom_link)}" target="_blank" rel="noopener" class="sketch-btn classroom"><i class="ph ph-chalkboard"></i> Class</a>` : ''}
                     ${copyBtn}
                     ${
                         isAdmin
                             ? `
                         <button onclick="openEditClassModal(${cls.id})" class="sketch-btn" style="background:#0984e3; color:#fff; border-color:#0984e3;">
-                            <i class="fas fa-edit"></i> Edit Details
+                            <i class="ph ph-pencil-simple"></i> Edit Details
                         </button>
                     `
                             : ''
@@ -593,7 +593,7 @@ async function loadAssignments() {
             const calBtn = task.due_date
                 ? `
             <button onclick="event.stopPropagation(); openCalendarPrompt(${index})" class="sketch-btn" style="width: auto; padding: 5px 10px; font-size: 0.9rem; margin: 0; background: #fff; color: #000; display: flex; align-items: center; gap: 5px;">
-                <i class="fab fa-google" style="color: #4285F4;"></i> Add to Calendar
+                <i class="ph ph-google-logo" style="color: #4285F4;"></i> Add to Calendar
             </button>
         `
                 : '';
@@ -606,11 +606,11 @@ async function loadAssignments() {
                         <div class="assignment-subject-tag">${escapeHTML(task.subject)}</div>
                         <h3 style="margin-top: 5px;">${escapeHTML(task.title)}</h3>
                     </div>
-                    <i class="fas fa-chevron-down hw-item-chevron" style="margin-top: 10px; color: #636e72; transition: transform 0.3s; font-size: 0.9rem;"></i>
+                    <i class="ph ph-caret-down hw-item-chevron" style="margin-top: 10px; color: #636e72; transition: transform 0.3s; font-size: 0.9rem;"></i>
                 </div>
                 <div class="assignment-description" style="display: none; margin: 15px 0;">${escapeHTML(task.description || '')}</div>
                 <div class="assignment-due-date" style="display: flex; justify-content: space-between; align-items: center;">
-                    <span><i class="fas fa-calendar-day"></i> Due: ${date}</span>
+                    <span><i class="ph ph-calendar"></i> Due: ${date}</span>
                     ${calBtn}
                 </div>
             </div>
@@ -653,9 +653,9 @@ window.renderCalendar = function () {
     let html = `
         <div class="calendar-wrapper">
             <div class="calendar-header">
-                <button class="sketch-btn" onclick="changeMonth(-1)" style="width:auto;"><i class="fas fa-chevron-left"></i></button>
+                <button class="sketch-btn" onclick="changeMonth(-1)" style="width:auto;"><i class="ph ph-caret-left"></i></button>
                 <span>${monthNames[month]} ${year}</span>
-                <button class="sketch-btn" onclick="changeMonth(1)" style="width:auto;"><i class="fas fa-chevron-right"></i></button>
+                <button class="sketch-btn" onclick="changeMonth(1)" style="width:auto;"><i class="ph ph-caret-right"></i></button>
             </div>
             <div class="calendar-grid">
                 <div class="cal-day-header">Sun</div><div class="cal-day-header">Mon</div><div class="cal-day-header">Tue</div>
@@ -676,12 +676,12 @@ window.renderCalendar = function () {
 
         if (hasEvent) {
             // Visual Marker (e.g., Red Circle or icon)
-            eventMarkers = `<div class="cal-marker"><i class="fas fa-circle" style="color:#d63031; font-size:0.6rem;"></i> ${dayEvents.length > 1 ? '+' : ''}</div>`;
+            eventMarkers = `<div class="cal-marker"><i class="ph ph-circle" style="color:#d63031; font-size:0.6rem;"></i> ${dayEvents.length > 1 ? '+' : ''}</div>`;
 
             // Hover Popup (Paper style)
             hoverPopup = `
                 <div class="cal-hover-popup">
-                    <div class="pin-tack"><i class="fas fa-thumbtack"></i></div>
+                    <div class="pin-tack"><i class="ph ph-push-pin"></i></div>
                     <h4>${monthNames[month]} ${day}</h4>
                     <ul>
                         ${dayEvents.map((e) => `<li>${escapeHTML(e.title)}</li>`).join('')}
@@ -715,7 +715,7 @@ window.showDayDetails = function (dateStr) {
         html += `
             <div style="text-align:center; margin-bottom:15px;">
                 <button onclick="openAddEventModal('${dateStr}')" class="sketch-btn" style="font-size:1rem; padding:8px 15px; background:#fff; border:2px dashed #000; width:auto;">
-                    <i class="fas fa-plus"></i> Add Event here
+                    <i class="ph ph-plus"></i> Add Event here
                 </button>
             </div>
         `;
@@ -1133,25 +1133,25 @@ function checkLiveClass() {
             <div class="live-card">
                 <div class="live-card-details">
                     <div>
-                        <div class="subject-code" style="font-size:1.2rem; color:#2d3436;">${escapeHTML(liveClass.subject_code)}</div>
-                        <h3>${escapeHTML(liveClass.subject_name)}</h3>
+                        <h3 style="margin:0 0 4px 0;">${escapeHTML(liveClass.subject_name)}</h3>
+                        <div class="subject-code" style="font-size:1rem; color:#2d3436;">${escapeHTML(liveClass.subject_code)}</div>
                         <p style="margin:0;">
-                            <i class="fas fa-clock"></i> ${startDisp} - ${endDisp} | 
-                            <i class="fas fa-chalkboard-teacher"></i> ${escapeHTML(liveClass.instructor || 'TBA')}
+                            <i class="ph ph-clock"></i> ${startDisp} - ${endDisp} | 
+                            <i class="ph ph-chalkboard-teacher"></i> ${escapeHTML(liveClass.instructor || 'TBA')}
                         </p>
                     </div>
                     <div>
                         ${
                             liveClass.meet_link
                                 ? `<a href="${liveClass.meet_link}" target="_blank" class="sketch-btn meet" style="font-size:1.1rem; border-width:3px; margin-bottom: 5px; display: flex; justify-content: center; align-items: center; gap: 8px;">
-                            <i class="fas fa-video"></i> Open G-Meet
+                            <i class="ph ph-video-camera"></i> Open G-Meet
                         </a>`
                                 : ''
                         }
                         ${
                             liveClass.classroom_link
                                 ? `<a href="${liveClass.classroom_link}" target="_blank" class="sketch-btn classroom" style="font-size:1.1rem; border-width:3px; display: flex; justify-content: center; align-items: center; gap: 8px; border-color: #00b894; color: #00b894;">
-                            <i class="fas fa-chalkboard"></i> Go to Classroom
+                            <i class="ph ph-chalkboard"></i> Go to Classroom
                         </a>`
                                 : ''
                         }
@@ -1435,37 +1435,45 @@ async function populateSubjectOptions() {
     if (folderGrid) {
         // Direct subject code → icon map (based on actual schedule)
         const subjectIconMap = {
-            'GEd 106': 'fa-comments', // Purposive Communication
-            'GEd 101': 'fa-brain', // Understanding the Self
-            'ES 101': 'fa-leaf', // Environmental Sciences
-            'IT 222': 'fa-database', // Advanced Database Management System
-            'IT 221': 'fa-server', // Information Management
-            'IT 223': 'fa-network-wired', // Computer Networking 2
-            'MATH 408': 'fa-chart-bar', // Data Analysis
-            'PATHFit 4': 'fa-basketball-ball', // Team Sports
+            'GEd 106': 'ph-chats-circle', // Purposive Communication
+            'GEd 101': 'ph-brain', // Understanding the Self
+            'GEd 107': 'ph-heart', // Ethics
+            'GED 107': 'ph-heart', // Ethics
+            'ES 101': 'ph-leaf', // Environmental Sciences
+            'IT 222': 'ph-database', // Advanced Database Management System
+            'IT 221': 'ph-hard-drives', // Information Management
+            'IT 223': 'ph-share-network', // Computer Networking 2
+            'IT 311': 'ph-hard-drives', // System Administration
+            'IT 312': 'ph-share-network', // System Integration
+            'IT 313': 'ph-tree-structure', // System Analysis and Design
+            'IT 314': 'ph-laptop', // Web Systems and Technologies
+            'BAT 401': 'ph-chart-line', // Fundamentals of Business Analytics
+            'BAT 402': 'ph-chart-bar', // Fundamentals of Analytics Modeling
+            'MATH 408': 'ph-chart-bar', // Data Analysis
+            'PATHFit 4': 'ph-basketball', // Team Sports
         };
 
         // Smart fallback for any future/unknown subjects
         function getSubjectIcon(name, code) {
             if (subjectIconMap[code]) return subjectIconMap[code];
             const text = (name + ' ' + code).toLowerCase();
-            if (text.match(/math|calc|algebra|geometry|trig|stat/)) return 'fa-calculator';
-            if (text.match(/environ|eco.*sci|earth/)) return 'fa-leaf';
-            if (text.match(/database|dbms|sql/)) return 'fa-database';
-            if (text.match(/network|net\b/)) return 'fa-network-wired';
-            if (text.match(/sci|physics|chem|bio|lab/)) return 'fa-flask';
-            if (text.match(/eng|lit|read|writ|grammar|commun/)) return 'fa-comments';
-            if (text.match(/fil|filipino|tagalog|wika/)) return 'fa-language';
-            if (text.match(/hist|kasaysayan|araling|soc/)) return 'fa-landmark';
-            if (text.match(/comp|it |ict|tech|prog|code|cs /)) return 'fa-laptop-code';
-            if (text.match(/pe |sport|phys.*ed|mapeh|health|pathfit|basket|volley/)) return 'fa-basketball-ball';
-            if (text.match(/self|psych|understand/)) return 'fa-brain';
-            if (text.match(/art|draw|paint/)) return 'fa-palette';
-            if (text.match(/music|mus /)) return 'fa-music';
-            if (text.match(/val|esp|eduk|ethics|moral/)) return 'fa-heart';
-            if (text.match(/research|thesis/)) return 'fa-microscope';
-            if (text.match(/econ|business|entre|abm/)) return 'fa-chart-line';
-            return 'fa-folder';
+            if (text.match(/math|calc|algebra|geometry|trig|stat/)) return 'ph-calculator';
+            if (text.match(/environ|eco.*sci|earth/)) return 'ph-leaf';
+            if (text.match(/database|dbms|sql/)) return 'ph-database';
+            if (text.match(/network|net\b/)) return 'ph-share-network';
+            if (text.match(/sci|physics|chem|bio|lab/)) return 'ph-flask';
+            if (text.match(/eng|lit|read|writ|grammar|commun/)) return 'ph-chats-circle';
+            if (text.match(/fil|filipino|tagalog|wika/)) return 'ph-translate';
+            if (text.match(/hist|kasaysayan|araling|soc/)) return 'ph-bank';
+            if (text.match(/comp|it |ict|tech|prog|code|cs /)) return 'ph-laptop';
+            if (text.match(/pe |sport|phys.*ed|mapeh|health|pathfit|basket|volley/)) return 'ph-basketball';
+            if (text.match(/self|psych|understand/)) return 'ph-brain';
+            if (text.match(/art|draw|paint/)) return 'ph-palette';
+            if (text.match(/music|mus /)) return 'ph-music-notes';
+            if (text.match(/val|esp|eduk|ethics|moral/)) return 'ph-heart';
+            if (text.match(/research|thesis/)) return 'ph-microscope';
+            if (text.match(/econ|business|entre|abm/)) return 'ph-chart-line';
+            return 'ph-folder';
         }
 
         // Color palette for subjects
@@ -1487,13 +1495,13 @@ async function populateSubjectOptions() {
         let html = `
             <div class="subject-folder active" style="--folder-color: #2d3436;" onclick="filterFiles('All', this)">
                 <div style="position:absolute; top:0; left:0; right:0; height:6px; background:#2d3436; border-radius:9px 9px 0 0;"></div>
-                <span class="folder-emoji"><i class="fas fa-layer-group"></i></span>
+                <span class="folder-emoji"><i class="ph ph-stack"></i></span>
                 <span class="folder-name">All Files</span>
                 <span class="folder-count" id="fc-all">...</span>
             </div>
             <div class="subject-folder" style="--folder-color: #636e72;" onclick="openSubjectFolder('General', this)">
                 <div style="position:absolute; top:0; left:0; right:0; height:6px; background:#636e72; border-radius:9px 9px 0 0;"></div>
-                <span class="folder-emoji"><i class="fas fa-folder"></i></span>
+                <span class="folder-emoji"><i class="ph ph-folder"></i></span>
                 <span class="folder-name">General</span>
                 <span class="folder-count" id="fc-General">...</span>
             </div>
@@ -1506,7 +1514,7 @@ async function populateSubjectOptions() {
             html += `
                 <div class="subject-folder" style="--folder-color: ${color};" onclick="openSubjectFolder('${escAttr(code)}', this)">
                     <div style="position:absolute; top:0; left:0; right:0; height:6px; background:${color}; border-radius:9px 9px 0 0;"></div>
-                    <span class="folder-emoji" style="color:${color};"><i class="fas ${iconClass}"></i></span>
+                    <span class="folder-emoji" style="color:${color};"><i class="ph ${iconClass}"></i></span>
                     <span class="folder-name" title="${displayName}">${displayName}</span>
                     <span class="folder-count" id="fc-${code}">...</span>
                 </div>
@@ -1596,13 +1604,13 @@ async function loadFiles(subjectFilter = 'All') {
                 : '';
 
             // Choose icon
-            let icon = 'fa-file';
-            if (file.file_type.includes('pdf')) icon = 'fa-file-pdf';
-            else if (file.file_type.includes('image')) icon = 'fa-file-image';
-            else if (file.file_type.includes('word') || file.file_type.includes('doc')) icon = 'fa-file-word';
-            else if (file.file_type.includes('sheet') || file.file_type.includes('csv')) icon = 'fa-file-excel';
+            let icon = 'ph-file';
+            if (file.file_type.includes('pdf')) icon = 'ph-file-pdf';
+            else if (file.file_type.includes('image')) icon = 'ph-file-image';
+            else if (file.file_type.includes('word') || file.file_type.includes('doc')) icon = 'ph-file-doc';
+            else if (file.file_type.includes('sheet') || file.file_type.includes('csv')) icon = 'ph-file-xls';
             else if (file.file_type.includes('presentation') || file.file_type.includes('ppt'))
-                icon = 'fa-file-powerpoint';
+                icon = 'ph-file-ppt';
 
             const subjectTag = file.subject
                 ? `<span style="background:#dfe6e9; font-size:0.8rem; padding:2px 6px; border-radius:4px;">${file.subject}</span>`
@@ -1613,13 +1621,13 @@ async function loadFiles(subjectFilter = 'All') {
                 ${deleteBtn}
                 <div style="width:100%;">
                     <div style="font-size: 2.5rem; color: #57606f; margin-top:10px;">
-                        <i class="fas ${icon}"></i>
+                        <i class="ph ${icon}"></i>
                     </div>
                     <h3 style="font-size: 1.1rem; margin: 10px 0; word-break: break-word;">${escapeHTML(file.title)}</h3>
                     ${subjectTag}
                 </div>
                 <a href="${file.file_url}" download class="sketch-btn" style="width:80%; justify-content:center; margin-top:10px;">
-                    Download <i class="fas fa-download"></i>
+                    Download <i class="ph ph-download-simple"></i>
                 </a>
             </div>
         `;
@@ -1737,7 +1745,7 @@ function createNoteElement(note, isAdmin) {
     if (isAdmin) {
         const btn = document.createElement('button');
         btn.className = 'delete-note-btn';
-        btn.innerHTML = '<i class="fas fa-times"></i>';
+        btn.innerHTML = '<i class="ph ph-x"></i>';
         btn.onmousedown = (e) => e.stopPropagation();
         btn.onclick = () => deleteNote(note.id);
         div.appendChild(btn);
@@ -1745,7 +1753,7 @@ function createNoteElement(note, isAdmin) {
 
     const likeBtn = document.createElement('div');
     likeBtn.className = 'like-sticker';
-    likeBtn.innerHTML = `<i class="fas fa-heart"></i> <span class="like-count">${note.likes || 0}</span>`;
+    likeBtn.innerHTML = `<i class="ph ph-heart"></i> <span class="like-count">${note.likes || 0}</span>`;
     likeBtn.onmousedown = (e) => e.stopPropagation();
     div.appendChild(likeBtn);
 
@@ -2001,7 +2009,7 @@ window.showWelcomeNote = function () {
             .update-img-container { flex: 1; min-width: 200px; position: relative; cursor: zoom-in; }
             @media (max-width: 600px) { .update-flex { flex-direction: column; gap: 30px; } .update-arrow { transform: rotate(90deg); } }
         </style>
-        <h2 style="margin-top:0; text-decoration: underline wavy #000;"><i class="fas fa-star"></i> SYSTEM UPDATE</h2>
+        <h2 style="margin-top:0; text-decoration: underline wavy #000;"><i class="ph ph-star"></i> SYSTEM UPDATE</h2>
         <p style="font-size:1.1rem; margin: 10px 0;">"Look at the upgrade guys! (Click pics to zoom)"</p>
         <div class="update-flex">
             <div class="update-img-container" onclick="viewFullImage('assets/images/Beforeimg.png')">
@@ -2015,30 +2023,30 @@ window.showWelcomeNote = function () {
             </div>
         </div>
         <div style="text-align: left; background: #f9f9f9; border: 2px dashed #bbb; padding: 15px; border-radius: 10px; margin-bottom: 15px;">
-            <p style="font-weight: bold; margin: 0 0 10px 0; border-bottom: 2px solid #ddd; padding-bottom: 5px;"><i class="fas fa-edit"></i> What's New in this Update:</p>
+            <p style="font-weight: bold; margin: 0 0 10px 0; border-bottom: 2px solid #ddd; padding-bottom: 5px;"><i class="ph ph-pencil-simple"></i> What's New in this Update:</p>
             <ul style="padding-left: 20px; margin: 0; list-style-type: none; font-size: 1rem; line-height: 1.6;">
-                <li><i class="fas fa-shield-alt"></i> <b>Security Patch:</b> Strengthened admin protocols and fixed navigation loopholes.</li>
-                <li><i class="fas fa-user-lock"></i> <b>Session Integrity:</b> Added validation to prevent unauthorized access via storage modification.</li>
-                <li><i class="fas fa-folder-open"></i> <b>System Cleanup:</b> Organized file structure (CSS/JS/Assets) for better performance.</li>
-                <li><i class="fas fa-code"></i> <b>Optimized Codebase:</b> Extracted inline styles and scripts to improve load times.</li>
-                <li><i class="fas fa-check-circle"></i> <b>Data Ethics:</b> Reinforced authorized access controls for all users.</li>
+                <li><i class="ph ph-shield"></i> <b>Security Patch:</b> Strengthened admin protocols and fixed navigation loopholes.</li>
+                <li><i class="ph ph-user-circle-minus"></i> <b>Session Integrity:</b> Added validation to prevent unauthorized access via storage modification.</li>
+                <li><i class="ph ph-folder-open"></i> <b>System Cleanup:</b> Organized file structure (CSS/JS/Assets) for better performance.</li>
+                <li><i class="ph ph-code"></i> <b>Optimized Codebase:</b> Extracted inline styles and scripts to improve load times.</li>
+                <li><i class="ph ph-check-circle"></i> <b>Data Ethics:</b> Reinforced authorized access controls for all users.</li>
             </ul>
         </div>
         
         <div style="text-align: left; background: #fffde7; border: 2px dashed #f1c40f; padding: 15px; border-radius: 10px; margin-bottom: 15px;">
-             <p style="font-weight: bold; margin: 0 0 10px 0; border-bottom: 2px solid #f39c12; padding-bottom: 5px;"><i class="fas fa-star"></i> Key Features:</p>
+             <p style="font-weight: bold; margin: 0 0 10px 0; border-bottom: 2px solid #f39c12; padding-bottom: 5px;"><i class="ph ph-star"></i> Key Features:</p>
              <ul style="padding-left: 20px; margin: 0; list-style-type: none; font-size: 1rem; line-height: 1.6;">
-                <li><i class="fas fa-paper-plane"></i> <b>Message Anyone:</b> New floating notepad button to chat with any classmate!</li>
-                <li><i class="fas fa-mobile-alt"></i> <b>Mobile Optimization:</b> Reorganized header layout to prevent overlapping on phone screens.</li>
-                <li><i class="fas fa-camera-retro"></i> <b>Memories Gallery:</b> New photo gallery added to the login page!</li>
-                <li><i class="fas fa-question-circle"></i> <b>Help Guide:</b> Added a user guide tab inside the binder.</li>
-                <li><i class="fas fa-filter"></i> <b>Smart Filters:</b> Gallery photos no longer clutter your reviewer files.</li>
-                <li><i class="fas fa-magic"></i> <b>Wallpaper Generator V2:</b> Create wallpapers with <i>Glassmorphism</i> effects or upload your own background image!</li>
-                <li><i class="fas fa-tools"></i> <b>Admin Tools Tab:</b> (For Admin) All management tools are now in a dedicated binder tab.</li>
-                <li><i class="fas fa-sticky-note"></i> <b>Better Sticky Notes:</b> Improved tape visuals and smoother dragging.</li>
-                <li><i class="fas fa-eye"></i> <b>File Previewer:</b> Preview PDFs and images instantly before downloading.</li>
-                <li><i class="fas fa-clock"></i> <b>Live Class Tracker:</b> See exactly which class is happening right now.</li>
-                <li><i class="fas fa-folder"></i> <b>Subject Cabinet:</b> Files are now organized by subject folders.</li>
+                <li><i class="ph ph-paper-plane-tilt"></i> <b>Message Anyone:</b> New floating notepad button to chat with any classmate!</li>
+                <li><i class="ph ph-device-mobile"></i> <b>Mobile Optimization:</b> Reorganized header layout to prevent overlapping on phone screens.</li>
+                <li><i class="ph ph-camera"></i> <b>Memories Gallery:</b> New photo gallery added to the login page!</li>
+                <li><i class="ph ph-question"></i> <b>Help Guide:</b> Added a user guide tab inside the binder.</li>
+                <li><i class="ph ph-funnel"></i> <b>Smart Filters:</b> Gallery photos no longer clutter your reviewer files.</li>
+                <li><i class="ph ph-magic-wand"></i> <b>Wallpaper Generator V2:</b> Create wallpapers with <i>Glassmorphism</i> effects or upload your own background image!</li>
+                <li><i class="ph ph-wrench"></i> <b>Admin Tools Tab:</b> (For Admin) All management tools are now in a dedicated binder tab.</li>
+                <li><i class="ph ph-note"></i> <b>Better Sticky Notes:</b> Improved tape visuals and smoother dragging.</li>
+                <li><i class="ph ph-eye"></i> <b>File Previewer:</b> Preview PDFs and images instantly before downloading.</li>
+                <li><i class="ph ph-clock"></i> <b>Live Class Tracker:</b> See exactly which class is happening right now.</li>
+                <li><i class="ph ph-folder"></i> <b>Subject Cabinet:</b> Files are now organized by subject folders.</li>
              </ul>
         </div>
         <button onclick="showCongratsMessage(this.closest('.wimpy-modal-overlay'))" style="background: #000; color: #fff; border: 2px solid #000; font-family: 'Patrick Hand'; font-size: 1.2rem; cursor: pointer; width: 100%; border-radius: 5px; padding: 10px;">SHEESH!</button>
@@ -2196,7 +2204,7 @@ window.loadTodos = async function () {
             const isDoneByMe = itemCompletions.some((c) => c.user_id === user.id);
 
             const deleteBtn = isAdmin
-                ? `<button onclick="deleteGlobalTodo(${todo.id})" class="sketch-btn danger" style="padding:2px 8px; font-size:0.8rem; height:auto; width:auto; margin:0;"><i class="fas fa-trash"></i></button>`
+                ? `<button onclick="deleteGlobalTodo(${todo.id})" class="sketch-btn danger" style="padding:2px 8px; font-size:0.8rem; height:auto; width:auto; margin:0;"><i class="ph ph-trash"></i></button>`
                 : '';
 
             // Generate avatars for completed users
@@ -2361,7 +2369,7 @@ async function showHighlightsModal() {
                 window.switchTab('assignments', event); 
                 document.getElementById('highlights-popup').remove(); 
                 console.log('User clicked homework:', '${h.id}')">
-                <i class="fas fa-thumbtack" style="color:#d63031;"></i>
+                <i class="ph ph-push-pin" style="color:#d63031;"></i>
                 <div class="highlight-details">
                     <span class="highlight-title">${escapeHTML(h.title)}</span>
                     <span class="highlight-sub">${getSubjectName(h.subject)} • <span style="color:#d63031; font-weight:bold;">Due ${window.timeAgo ? window.timeAgo(h.due_date) : new Date(h.due_date).toLocaleDateString()}</span></span>
@@ -2386,23 +2394,23 @@ async function showHighlightsModal() {
                               .replace(/"/g, '&quot;');
 
                           // Icon logic to match the mini-cards
-                          let iconClass = 'fa-file';
+                          let iconClass = 'ph-file';
                           let iconColor = '#2f3542';
                           const fType = (f.file_type || '').toLowerCase();
                           if (fType.includes('pdf')) {
-                              iconClass = 'fa-file-pdf';
+                              iconClass = 'ph-file-pdf';
                               iconColor = '#d63031';
                           } else if (fType.includes('image')) {
-                              iconClass = 'fa-file-image';
+                              iconClass = 'ph-file-image';
                               iconColor = '#00b894';
                           } else if (fType.includes('word')) {
-                              iconClass = 'fa-file-word';
+                              iconClass = 'ph-file-doc';
                               iconColor = '#0984e3';
                           }
 
                           return `
                 <div class="highlight-item interactive" onclick="openFilePreview('${safeUrl}', '${safeTitle}', ${f.id}); document.getElementById('highlights-popup').remove();">
-                    <i class="fas ${iconClass}" style="color:${iconColor};"></i>
+                    <i class="ph ${iconClass}" style="color:${iconColor};"></i>
                     <div class="highlight-details">
                         <span class="highlight-title">${escapeHTML(f.title)}</span>
                         <span class="highlight-sub">${getSubjectName(f.subject)} • ${window.timeAgo ? window.timeAgo(f.created_at) : 'Just uploaded'}</span>
@@ -2417,18 +2425,18 @@ async function showHighlightsModal() {
         let adminHtml = '';
         if (window.isAdmin) {
             const toolDefinitions = [
-                { id: 'schedule', label: 'Class Schedule Management', icon: 'fa-clock' },
-                { id: 'homework', label: 'Homework & Planner Control', icon: 'fa-thumbtack' },
-                { id: 'event', label: 'Event Calendar Editor', icon: 'fa-calendar-alt' },
-                { id: 'file', label: 'File Cabinet & Resources', icon: 'fa-paperclip' },
-                { id: 'todo', label: 'Global To-Do List Power', icon: 'fa-check-double' },
-                { id: 'email', label: 'System Email Blast (Carrier Pigeon)', icon: 'fa-envelope' },
-                { id: 'messages', label: 'Message & Chat Monitor', icon: 'fa-comments' },
-                { id: 'gallery', label: 'Landing Page Gallery Control', icon: 'fa-images' },
-                { id: 'storage', label: 'Bucket Storage Monitor', icon: 'fa-hdd' },
-                { id: 'promote', label: 'Admin Privilege Management', icon: 'fa-crown' },
-                { id: 'revoke', label: 'Admin Access Revocation', icon: 'fa-user-slash' },
-                { id: 'blacklist', label: 'Student Black List (VIP)', icon: 'fa-user-shield' },
+                { id: 'schedule', label: 'Class Schedule Management', icon: 'ph-clock' },
+                { id: 'homework', label: 'Homework & Planner Control', icon: 'ph-push-pin' },
+                { id: 'event', label: 'Event Calendar Editor', icon: 'ph-calendar-blank' },
+                { id: 'file', label: 'File Cabinet & Resources', icon: 'ph-paperclip' },
+                { id: 'todo', label: 'Global To-Do List Power', icon: 'ph-checks' },
+                { id: 'email', label: 'System Email Blast (Carrier Pigeon)', icon: 'ph-envelope' },
+                { id: 'messages', label: 'Message & Chat Monitor', icon: 'ph-chats-circle' },
+                { id: 'gallery', label: 'Landing Page Gallery Control', icon: 'ph-images' },
+                { id: 'storage', label: 'Bucket Storage Monitor', icon: 'ph-hard-drive' },
+                { id: 'promote', label: 'Admin Privilege Management', icon: 'ph-crown' },
+                { id: 'revoke', label: 'Admin Access Revocation', icon: 'ph-user-minus' },
+                { id: 'blacklist', label: 'Student Black List (VIP)', icon: 'ph-user-gear' },
             ];
 
             const accessibleTools = [];
@@ -2445,7 +2453,7 @@ async function showHighlightsModal() {
                     .map(
                         (t) => `
                     <div style="display:flex; align-items:center; gap:10px; padding:5px 0; font-family:'Patrick Hand';">
-                        <i class="fas ${t.icon}" style="width:20px; text-align:center;"></i>
+                        <i class="ph ${t.icon}" style="width:20px; text-align:center;"></i>
                         <span style="font-size:0.95rem;">${t.label}</span>
                     </div>
                 `,
@@ -2455,7 +2463,7 @@ async function showHighlightsModal() {
                 adminHtml = `
                     <div class="highlights-section" style="background:#fdfbf7; border:2px dashed #000; padding:10px; border-radius:3px; margin-bottom:15px;">
                         <div class="highlights-section-title" style="color:#6c5ce7; border-bottom-color:#6c5ce7;">
-                            <i class="fas fa-crown"></i> Admin Access
+                            <i class="ph ph-crown"></i> Admin Access
                         </div>
                         <div style="max-height:120px; overflow-y:auto; padding-right:5px;" class="custom-scroll">
                             ${toolsListHtml}
@@ -2467,14 +2475,14 @@ async function showHighlightsModal() {
 
         // 5. Create HTML content
         const headerTitle = window.isAdmin ? 'Hoy admin ka!' : "WHAT'S NEW?";
-        const headerIcon = window.isAdmin ? 'fa-crown' : 'fa-bolt';
+        const headerIcon = window.isAdmin ? 'ph-crown' : 'ph-lightning';
         const headerColor = window.isAdmin ? '#6c5ce7' : '#f1c40f';
         const headerSub = window.isAdmin ? 'Eto ang may access ka, Boss:' : "Here's your quick recap, ";
 
         box.innerHTML = `
             <div class="highlights-header" style="${window.isAdmin ? 'background:#fffdf0; border-bottom:3px solid #000;' : ''}">
                 <h2 style="${window.isAdmin ? "color:#000; font-family:'Patrick Hand'; font-size:2.5rem;" : ''}">
-                    <i class="fas ${headerIcon}" style="color:${headerColor};"></i> ${headerTitle}
+                    <i class="ph ${headerIcon}" style="color:${headerColor};"></i> ${headerTitle}
                 </h2>
                 <p style="margin:5px 0 0 0; font-family:'Patrick Hand'; font-size:1.1rem;">
                     ${headerSub}${window.isAdmin ? '' : `<b>${currentUser.name.split(' ')[0]}</b>!`}
@@ -2483,11 +2491,11 @@ async function showHighlightsModal() {
             <div class="highlights-content">
                 ${adminHtml}
                 <div class="highlights-section">
-                    <div class="highlights-section-title"><i class="fas fa-thumbtack"></i> Homework Alert</div>
+                    <div class="highlights-section-title"><i class="ph ph-push-pin"></i> Homework Alert</div>
                     ${hwHtml}
                 </div>
                 <div class="highlights-section">
-                    <div class="highlights-section-title"><i class="fas fa-folder-open"></i> New Resources</div>
+                    <div class="highlights-section-title"><i class="ph ph-folder-open"></i> New Resources</div>
                     ${filesHtml}
                 </div>
             </div>
@@ -2635,7 +2643,7 @@ window.loadRecentAnnouncementsSidebar = async function () {
 
                     peekHtml = `
                     <div class="ann-peek">
-                        <div class="peek-title"><i class="fas fa-comments"></i> Reactions (${annComments.length})</div>
+                        <div class="peek-title"><i class="ph ph-chats-circle"></i> Reactions (${annComments.length})</div>
                         ${previews}
                         ${moreCount}
                     </div>
@@ -2646,7 +2654,7 @@ window.loadRecentAnnouncementsSidebar = async function () {
                     ? `
                 <button onclick="event.stopPropagation(); deleteAnnouncementSidebar('${ann.id}')" 
                         class="ann-delete-btn">
-                    <i class="fas fa-times"></i>
+                    <i class="ph ph-x"></i>
                 </button>
             `
                     : '';
@@ -2659,14 +2667,14 @@ window.loadRecentAnnouncementsSidebar = async function () {
                     <div class="ann-mini-content">
                         ${escapeHTML(ann.content)}
                     </div>
-                    <small><i class="fas fa-clock"></i> ${timeStr} ${annComments.length > 0 ? `<span style="margin-left:auto;"><i class="fas fa-comment"></i> ${annComments.length}</span>` : ''}</small>
+                    <small><i class="ph ph-clock"></i> ${timeStr} ${annComments.length > 0 ? `<span style="margin-left:auto;"><i class="ph ph-chat-circle"></i> ${annComments.length}</span>` : ''}</small>
                     ${remainingMs > 0 ? `
                     <div class="ann-card-footer">
-                        <span class="ann-timer-label ${severityClass}"><i class="fas fa-hourglass-half"></i> ${timerLabel}</span>
+                        <span class="ann-timer-label ${severityClass}"><i class="ph ph-hourglass-medium"></i> ${timerLabel}</span>
                         <div class="ann-timer-track"><div class="ann-timer-fill ${severityClass}" style="width:${percentRemaining}%"></div></div>
                     </div>` : `
                     <div class="ann-card-footer">
-                        <span class="ann-timer-label low"><i class="fas fa-hourglass-end"></i> ${timerLabel}</span>
+                        <span class="ann-timer-label low"><i class="ph ph-hourglass-high"></i> ${timerLabel}</span>
                         <div class="ann-timer-track"><div class="ann-timer-fill low" style="width:0%"></div></div>
                     </div>`}
                     ${peekHtml}
@@ -2742,7 +2750,7 @@ window.showUserActionMenu = function (targetId, targetName) {
         
         <div style="display:flex; flex-direction:column; gap:12px;">
             <button id="action-msg" class="sketch-btn" style="background:#6c5ce7; color:#fff;">
-                <i class="fas fa-comment"></i> SEND MESSAGE
+                <i class="ph ph-chat-circle"></i> SEND MESSAGE
             </button>
             <button id="action-shock" class="sketch-btn danger" style="background:#d63031; color:#fff;">
                  👻 "HAMILAW" (SHOCK)
@@ -2997,11 +3005,11 @@ function showBirthdayCollector() {
                     max="${new Date().toISOString().split('T')[0]}"
                     required>
                 <p id="birthday-error" style="color: #d63031; font-family: 'Patrick Hand'; font-size: 1rem; margin: 8px 0 0 0; display: none;">
-                    <i class="fas fa-exclamation-triangle"></i> Lagay mo birthday mo para makapasok ka!
+                    <i class="ph ph-warning"></i> Lagay mo birthday mo para makapasok ka!
                 </p>
             </div>
             <button id="birthday-save-btn" class="sketch-btn" style="background: #000; color: #fff; width: 100%; font-size: 1.2rem; transform: rotate(-1deg); padding: 12px;">
-                <i class="fas fa-check"></i> SAVE BIRTHDAY
+                <i class="ph ph-check"></i> SAVE BIRTHDAY
             </button>
             <p style="font-family: 'Patrick Hand'; font-size: 0.85rem; color: #a4b0be; margin-top: 12px;">
                 You can't skip this step. It's mandatory! 📋
@@ -3024,7 +3032,7 @@ function showBirthdayCollector() {
 
             const btn = document.getElementById('birthday-save-btn');
             btn.disabled = true;
-            btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Saving...';
+            btn.innerHTML = '<i class="ph ph-spinner ph-spin"></i> Saving...';
 
             try {
                 const { error } = await db.from('students').update({ birthday: val }).eq('id', currentUser.id);
@@ -3050,7 +3058,7 @@ function showBirthdayCollector() {
                 console.error('Birthday save error:', err);
                 showToast('Error saving birthday: ' + err.message, 'error');
                 btn.disabled = false;
-                btn.innerHTML = '<i class="fas fa-check"></i> SAVE BIRTHDAY';
+                btn.innerHTML = '<i class="ph ph-check"></i> SAVE BIRTHDAY';
             }
         };
     });
@@ -3134,7 +3142,7 @@ function renderFlashcardCards(cards) {
                 ? `
             <button onclick="deleteFlashcard(${card.id})" class="sketch-btn danger"
                 style="position: absolute; top: 10px; right: 10px; width: auto; padding: 4px 10px; font-size: 0.8rem; margin: 0;">
-                <i class="fas fa-trash-alt"></i>
+                <i class="ph ph-trash"></i>
             </button>`
                 : '';
 
@@ -3143,7 +3151,7 @@ function renderFlashcardCards(cards) {
                 ${deleteBtn}
                 <div style="display: flex; align-items: flex-start; gap: 15px; flex-wrap: wrap;">
                     <div style="background: ${color}; color: #fff; width: 48px; height: 48px; border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 1.4rem; box-shadow: 3px 3px 0 rgba(0,0,0,0.15); flex-shrink: 0;">
-                        <i class="fas fa-layer-group"></i>
+                        <i class="ph ph-stack"></i>
                     </div>
                     <div style="flex: 1; min-width: 180px;">
                         <h3 style="margin: 0 30px 5px 0; font-family: 'Permanent Marker'; font-size: 1.2rem; color: #2d3436;">
@@ -3153,13 +3161,13 @@ function renderFlashcardCards(cards) {
                         <div style="display: flex; align-items: center; gap: 10px; flex-wrap: wrap;">
                             <a href="${escapeHTML(card.link)}" target="_blank" class="sketch-btn"
                                 style="background: ${color}; color: #fff; border-color: ${color}; text-decoration: none; display: inline-flex; align-items: center; gap: 6px; padding: 6px 14px; font-size: 0.95rem; margin: 0; width: auto;">
-                                <i class="fas fa-external-link-alt"></i> Open (${escapeHTML(domain)})
+                                <i class="ph ph-arrow-square-out"></i> Open (${escapeHTML(domain)})
                             </a>
                             <small style="color: #aaa; font-family: 'Patrick Hand'; font-size: 0.85rem;">
-                                <i class="fas fa-clock"></i> ${addedAt}
+                                <i class="ph ph-clock"></i> ${addedAt}
                             </small>
                             <small style="color: ${expiryColor}; font-family: 'Patrick Hand'; font-size: 0.85rem; font-weight: bold;">
-                                <i class="fas fa-hourglass-half"></i> ${daysLeft}d left
+                                <i class="ph ph-hourglass-medium"></i> ${daysLeft}d left
                             </small>
                         </div>
                     </div>
@@ -3273,7 +3281,7 @@ function renderAdminVisibilityList(hiddenSet) {
     <div style="border:2px solid #000;border-radius:10px;padding:10px 12px;background:${bg};box-shadow:3px 3px 0 #000;transform:rotate(${angle}deg)">
       <div style="display:flex;justify-content:space-between;align-items:center;gap:8px">
         <span style="font-family:'Patrick Hand';font-size:1.1rem">${SECTION_LABELS[sec]}</span>
-        <span style="font-size:1rem">${isHidden ? '<i class="fas fa-eye-slash"></i>' : '<i class="fas fa-eye"></i>'}</span>
+        <span style="font-size:1rem">${isHidden ? '<i class="ph ph-eye-slash"></i>' : '<i class="ph ph-eye"></i>'}</span>
       </div>
       <button data-sec="${sec}" ${isAdmin ? '' : 'disabled'} style="margin-top:8px;width:100%;padding:6px 10px;border:2px solid #000;border-radius:999px;font-family:'Patrick Hand';font-size:1rem;cursor:pointer;background:${isHidden ? '#ff7675' : '#2d3436'};color:#fff">
         ${isHidden ? 'Hidden — tap to show' : 'Shown — tap to hide'}
@@ -3286,10 +3294,16 @@ function renderAdminVisibilityList(hiddenSet) {
       const currentlyHidden = btn.textContent.includes('Hidden');
       const nextHidden = !currentlyHidden;
       btn.disabled = true;
-      const { error } = await window.db.from('admin_settings').update({ hidden: nextHidden, updated_at: new Date().toISOString() }).eq('section', sec);
-      if (error) { showToast('Failed to update visibility', 'error'); btn.disabled = false; return; }
-      showToast(SECTION_LABELS[sec] + (nextHidden ? ' hidden' : ' shown'));
-      loadSectionVisibility();
+      try {
+        const { error } = await window.db.from('admin_settings').update({ hidden: nextHidden, updated_at: new Date().toISOString() }).eq('section', sec);
+        if (error) throw error;
+        showToast(SECTION_LABELS[sec] + (nextHidden ? ' hidden' : ' shown'));
+        await loadSectionVisibility();
+      } catch (err) {
+        console.error('Visibility update failed:', err);
+        showToast('Error: ' + (err.message || 'could not update visibility'), 'error');
+        btn.disabled = false;
+      }
     });
   });
 }

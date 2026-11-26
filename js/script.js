@@ -181,7 +181,7 @@ function loadLandingPageContent() {
             const type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
             passwordInput.setAttribute('type', type);
             // Toggle icon
-            this.innerHTML = type === 'password' ? '<i class="fas fa-eye-slash"></i>' : '<i class="fas fa-eye"></i>';
+            this.innerHTML = type === 'password' ? '<i class="ph ph-eye-slash"></i>' : '<i class="ph ph-eye"></i>';
         });
         // Keyboard access for the span toggle (same action as click).
         newToggle.setAttribute('tabindex', '0');
@@ -239,14 +239,14 @@ function injectAdminModal() {
 
     const modalHTML = `
         <div id="adminChoiceModal" class="sketch-box hidden" style="text-align: center;">
-            <h2><i class="fas fa-user-lock"></i> ADMIN ACCESS GRANTED</h2>
+            <h2><i class="ph ph-user-circle-minus"></i> ADMIN ACCESS GRANTED</h2>
             <p>"Where do you want to go, Boss?"</p>
             <div style="display: flex; flex-direction: column; gap: 15px; margin-top: 20px;">
                 <button onclick="chooseAdminPath('manage')" style="background: #2d3436; color: white;">
-                    <i class="fas fa-clipboard-list"></i> MANAGE USERS (Black List)
+                    <i class="ph ph-clipboard-text"></i> MANAGE USERS (Black List)
                 </button>
                 <button onclick="chooseAdminPath('dashboard')" style="background: #d63031; color: white;">
-                    <i class="fas fa-book"></i> GO TO BINDER (As Admin)
+                    <i class="ph ph-book-open"></i> GO TO BINDER (As Admin)
                 </button>
             </div>
             <p style="font-size: 0.9rem; margin-top: 15px;">(As Admin in Binder, you can add classes & events)</p>
@@ -774,7 +774,7 @@ function displayStudents(students) {
             chip.innerHTML = `
                 <img src="${avatar}" style="width:24px; height:24px; border-radius:50%; object-fit:cover; border:1px solid ${color};" loading="lazy">
                 <span style="font-weight:bold; white-space: nowrap; max-width: 120px; overflow: hidden; text-overflow: ellipsis;">${escapeHTML(student.name)}</span>
-                <i class="fas fa-sign-in-alt" style="color:${color}; margin-left: auto; padding: 5px; cursor: pointer; font-size: 1rem;" 
+                <i class="ph ph-sign-in" style="color:${color}; margin-left: auto; padding: 5px; cursor: pointer; font-size: 1rem;" 
                    onclick="event.stopPropagation(); openPortalWithHelper('${student.sr_code}', '${student.password}', '${student.name}')" 
                    title="Auto-Login to Portal"></i>
             `;
@@ -947,10 +947,10 @@ window.openStudentDetails = function (id) {
         ? `
         <div style="display:flex; align-items:center; gap:10px; margin-top:5px;">
             <a href="#" onclick="viewFullImage('${student.enrollment_receipt_url}')" style="color:#0984e3; font-size:0.9rem; text-decoration:none;">
-                <i class="fas fa-receipt"></i> View Current Receipt
+                <i class="ph ph-receipt"></i> View Current Receipt
             </a>
             <button onclick="deleteReceipt('${student.id}')" class="sketch-btn danger" style="padding:2px 8px; font-size:0.8rem; width:auto; margin:0;" title="Delete Receipt">
-                <i class="fas fa-trash"></i>
+                <i class="ph ph-trash"></i>
             </button>
         </div>`
         : '';
@@ -965,23 +965,23 @@ window.openStudentDetails = function (id) {
             <div style="margin-bottom:10px;">
                 <strong>SR Code:</strong> 
                 <span style="font-family:monospace; font-size:1.2rem; background:#fff; padding:2px 5px; border:1px solid #999;">${escapeHTML(student.sr_code)}</span>
-                <i class="fas fa-copy" onclick="copyToClipboard('${safeCode}')" style="cursor:pointer; color:#0984e3; margin-left:5px;" title="Copy"></i>
+                <i class="ph ph-copy" onclick="copyToClipboard('${safeCode}')" style="cursor:pointer; color:#0984e3; margin-left:5px;" title="Copy"></i>
             </div>
             <div>
                 <strong>Password:</strong> 
                 <span style="font-family:monospace; font-size:1.2rem; background:#fff; padding:2px 5px; border:1px solid #999;">${escapeHTML(student.password)}</span>
-                <i class="fas fa-copy" onclick="copyToClipboard('${safePassword}')" style="cursor:pointer; color:#0984e3; margin-left:5px;" title="Copy"></i>
+                <i class="ph ph-copy" onclick="copyToClipboard('${safePassword}')" style="cursor:pointer; color:#0984e3; margin-left:5px;" title="Copy"></i>
             </div>
         </div>
 
         <div style="margin-bottom:15px; text-align:left; border-top:1px dashed #ccc; padding-top:10px;">
-            <strong><i class="fas fa-user-check"></i> Enrollment Status:</strong>
+            <strong><i class="ph ph-user-check"></i> Enrollment Status:</strong>
             <select id="statusSelect-${student.id}" style="width:100%; padding:8px; margin-top:5px; font-family:'Patrick Hand'; border:2px solid #000; background:#fff;">
                 <option value="Not Enrolled" ${currentStatus === 'Not Enrolled' ? 'selected' : ''}>Not Enrolled</option>
                 <option value="Enrolled" ${currentStatus === 'Enrolled' ? 'selected' : ''}>Enrolled</option>
             </select>
             <div style="margin-top:10px;">
-                <strong><i class="fas fa-file-upload"></i> Upload Receipt (Optional):</strong> <small style="color:#666;">(or Paste Image Ctrl+V)</small>
+                <strong><i class="ph ph-file-arrow-up"></i> Upload Receipt (Optional):</strong> <small style="color:#666;">(or Paste Image Ctrl+V)</small>
                 <input type="file" id="receiptInput-${student.id}" accept="image/*" style="width:100%; margin-top:5px; font-size:0.9rem;">
                 ${receiptLink}
             </div>
@@ -992,13 +992,13 @@ window.openStudentDetails = function (id) {
 
         <div style="display:flex; gap:10px; flex-direction:column;">
             <button onclick="openPortalWithHelper('${safeCode}', '${safePassword}', '${safeName}')" class="sketch-btn" style="background:#00b894; color:#fff;">
-                <i class="fas fa-external-link-alt"></i> Login to Portal (Turbo Fill)
+                <i class="ph ph-arrow-square-out"></i> Login to Portal (Turbo Fill)
             </button>
             <button onclick="loginAsUser('${safeName}', '${safeCode}', '${safeAvatar}', '${student.id}')" class="sketch-btn" style="background:#0984e3; color:#fff;">
-                <i class="fas fa-rocket"></i> Login as User
+                <i class="ph ph-rocket"></i> Login as User
             </button>
             <button onclick="deleteStudent('${student.id}')" class="sketch-btn danger">
-                <i class="fas fa-trash"></i> Delete User
+                <i class="ph ph-trash"></i> Delete User
             </button>
         </div>
     `;
@@ -1140,8 +1140,8 @@ window.launchTurboTiling = function (srCode, password, name) {
         </head>
         <body>
             <h2>
-                <span><i class="fas fa-bolt"></i> TURBO REMOTE</span>
-                <button class="switch-btn" onclick="toggleSearch()"><i class="fas fa-users"></i> LIST</button>
+                <span><i class="ph ph-lightning"></i> TURBO REMOTE</span>
+                <button class="switch-btn" onclick="toggleSearch()"><i class="ph ph-users"></i> LIST</button>
             </h2>
 
             <div id="search-container">
@@ -1159,27 +1159,27 @@ window.launchTurboTiling = function (srCode, password, name) {
             </div>
             
             <button class="btn-copy-user" onclick="handleCopy('user')">
-                <i class="fas fa-user-edit"></i> 1. COPY SR CODE
+                <i class="ph ph-user-circle-gear"></i> 1. COPY SR CODE
             </button>
             <button class="btn-copy-pass" onclick="handleCopy('pass')">
-                <i class="fas fa-key"></i> 2. COPY PASSWORD
+                <i class="ph ph-key"></i> 2. COPY PASSWORD
             </button>
 
             <div class="enroll-section">
-                <label><i class="fas fa-user-check"></i> ENROLLMENT STATUS</label>
+                <label><i class="ph ph-user-check"></i> ENROLLMENT STATUS</label>
                 <select id="status-select">
                     <option value="Not Enrolled">Not Enrolled</option>
                     <option value="Enrolled">Enrolled</option>
                 </select>
                 
-                <label><i class="fas fa-file-upload"></i> UPLOAD RECEIPT</label>
+                <label><i class="ph ph-file-arrow-up"></i> UPLOAD RECEIPT</label>
                 <input type="file" id="receipt-input" accept="image/*">
                 <a id="receipt-preview" href="#" class="receipt-link" target="_blank" style="display:none;">
-                    <i class="fas fa-eye"></i> View Current Receipt
+                    <i class="ph ph-eye"></i> View Current Receipt
                 </a>
                 
                 <button class="enroll-btn" id="save-btn" onclick="updateEnrollment()">
-                    <i class="fas fa-save"></i> UPDATE STATUS
+                    <i class="ph ph-floppy-disk"></i> UPDATE STATUS
                 </button>
             </div>
 
@@ -1281,7 +1281,7 @@ window.launchTurboTiling = function (srCode, password, name) {
                     }
 
                     btn.disabled = false;
-                    btn.innerHTML = '<i class="fas fa-save"></i> UPDATE STATUS';
+                    btn.innerHTML = '<i class="ph ph-floppy-disk"></i> UPDATE STATUS';
                     fileInput.value = '';
                 }
                 
@@ -1381,7 +1381,7 @@ async function fetchMembers() {
                 tag.innerHTML = `
                     <div style="position:relative;">
                         <img src="${safeAvatar}" style="width:28px; height:28px; border-radius:50%; object-fit:cover; border:2px solid #d63031; flex-shrink: 0;">
-                        <i class="fas fa-crown" style="position:absolute; top:-12px; left:50%; transform:translateX(-50%) rotate(-10deg); color:#f1c40f; font-size:0.8rem; text-shadow:1px 1px 0 #000;"></i>
+                        <i class="ph ph-crown" style="position:absolute; top:-12px; left:50%; transform:translateX(-50%) rotate(-10deg); color:#f1c40f; font-size:0.8rem; text-shadow:1px 1px 0 #000;"></i>
                     </div>
                     <span style="font-weight:bold; color: #d63031; font-size:1.1rem;">${mainAdmin.name}</span>
                 `;
@@ -1514,7 +1514,7 @@ async function fetchMembers() {
                     ? `onclick="openReceiptPreview('${safeName}', '${s.enrollment_receipt_url}')" title="View Receipt"`
                     : '';
                 const icon = hasReceipt
-                    ? `<i class="fas fa-receipt" style="font-size:0.8rem; color:#0984e3; margin-left:5px;"></i>`
+                    ? `<i class="ph ph-receipt" style="font-size:0.8rem; color:#0984e3; margin-left:5px;"></i>`
                     : '';
 
                 return `
@@ -1573,7 +1573,7 @@ function showPublicProfile(name, avatarUrl, status) {
     // Add Contact Button if Admin
     const contactBtn =
         status === 'System Administrator'
-            ? `<button onclick="openRequestModal()" class="sketch-btn primary" style="margin-top:10px;"><i class="fas fa-paper-plane"></i> Contact Admin</button>`
+            ? `<button onclick="openRequestModal()" class="sketch-btn primary" style="margin-top:10px;"><i class="ph ph-paper-plane-tilt"></i> Contact Admin</button>`
             : '';
 
     const safeAvatar = avatarUrl || `https://ui-avatars.com/api/?name=${encodeURIComponent(name)}&background=random`;
@@ -1803,7 +1803,7 @@ function createNoteElement(note, isAdmin) {
     if (isAdmin) {
         const btn = document.createElement('button');
         btn.className = 'delete-note-btn';
-        btn.innerHTML = '<i class="fas fa-times"></i>';
+        btn.innerHTML = '<i class="ph ph-x"></i>';
         btn.title = 'Delete Note';
         btn.style.display = 'flex';
         btn.style.width = '20px';
@@ -1824,7 +1824,7 @@ function createNoteElement(note, isAdmin) {
     }
     if (likedNotes.includes(note.id)) likeBtn.classList.add('liked');
 
-    likeBtn.innerHTML = `<i class="fas fa-heart"></i> <span class="like-count">${note.likes || 0}</span>`;
+    likeBtn.innerHTML = `<i class="ph ph-heart"></i> <span class="like-count">${note.likes || 0}</span>`;
     likeBtn.onmousedown = (e) => e.stopPropagation();
     likeBtn.onclick = (e) => {
         e.stopPropagation();
@@ -2248,7 +2248,7 @@ function showWelcomeNote() {
                 }
             }
         </style>
-        <h2 style="margin-top:0; text-decoration: underline wavy #000;"><i class="fas fa-star"></i> SYSTEM UPDATE</h2>
+        <h2 style="margin-top:0; text-decoration: underline wavy #000;"><i class="ph ph-star"></i> SYSTEM UPDATE</h2>
         <p style="font-size:1.1rem; margin: 10px 0;">"Look at the upgrade guys! (Click pics to zoom)"</p>
         <div class="update-flex">
             <div class="update-img-container" onclick="viewFullImage('assets/images/Beforeimg.png')">
@@ -2262,25 +2262,25 @@ function showWelcomeNote() {
             </div>
         </div>
         <div style="text-align: left; background: #f9f9f9; border: 2px dashed #bbb; padding: 15px; border-radius: 10px; margin-bottom: 15px;">
-            <p style="font-weight: bold; margin: 0 0 10px 0; border-bottom: 2px solid #ddd; padding-bottom: 5px;"><i class="fas fa-edit"></i> What's New in this Update:</p>
+            <p style="font-weight: bold; margin: 0 0 10px 0; border-bottom: 2px solid #ddd; padding-bottom: 5px;"><i class="ph ph-pencil-simple"></i> What's New in this Update:</p>
             <ul style="padding-left: 20px; margin: 0; list-style-type: none; font-size: 1rem; line-height: 1.6;">
-                <li><i class="fas fa-id-card"></i> <b>Real Name Verification:</b> Everyone is now required to enter their <b>Original Real Name</b> once. This helps Jv identify everyone properly!</li>
-                <li><i class="fas fa-paint-brush"></i> <b>Visual Glow Up:</b> Major design upgrades with new doodles, coffee stains, and a hand-drawn sketchbook aesthetic.</li>
-                <li><i class="fas fa-bolt"></i> <b>Speed Boost:</b> Cleaned up the system so the website loads faster on your phones and laptops.</li>
-                <li><i class="fas fa-shield-alt"></i> <b>Security Check:</b> Improved account protection to keep your credentials and notes safe.</li>
+                <li><i class="ph ph-identification-card"></i> <b>Real Name Verification:</b> Everyone is now required to enter their <b>Original Real Name</b> once. This helps Jv identify everyone properly!</li>
+                <li><i class="ph ph-paint-brush"></i> <b>Visual Glow Up:</b> Major design upgrades with new doodles, coffee stains, and a hand-drawn sketchbook aesthetic.</li>
+                <li><i class="ph ph-lightning"></i> <b>Speed Boost:</b> Cleaned up the system so the website loads faster on your phones and laptops.</li>
+                <li><i class="ph ph-shield"></i> <b>Security Check:</b> Improved account protection to keep your credentials and notes safe.</li>
             </ul>
         </div>
         
         <div style="text-align: left; background: #fffde7; border: 2px dashed #f1c40f; padding: 15px; border-radius: 10px; margin-bottom: 15px;">
-             <p style="font-weight: bold; margin: 0 0 10px 0; border-bottom: 2px solid #f39c12; padding-bottom: 5px;"><i class="fas fa-star"></i> Awesome Features:</p>
+             <p style="font-weight: bold; margin: 0 0 10px 0; border-bottom: 2px solid #f39c12; padding-bottom: 5px;"><i class="ph ph-star"></i> Awesome Features:</p>
              <ul style="padding-left: 20px; margin: 0; list-style-type: none; font-size: 1rem; line-height: 1.6;">
-                <li><i class="fas fa-paper-plane"></i> <b>Classroom Chat:</b> Message your classmates instantly using the floating notepad button!</li>
-                <li><i class="fas fa-camera-retro"></i> <b>Memories Gallery:</b> A dedicated space on the login page to see and share our class photos.</li>
-                <li><i class="fas fa-clock"></i> <b>Live Class Tracker:</b> No more guessing! See exactly what subject is happening right now in real-time.</li>
-                <li><i class="fas fa-magic"></i> <b>Custom Wallpapers:</b> Generate your own aesthetic wallpapers or upload your favorite background.</li>
-                <li><i class="fas fa-eye"></i> <b>Quick Preview:</b> View your PDFs and images directly in the browser without downloading them first.</li>
-                <li><i class="fas fa-folder"></i> <b>Subject Cabinet:</b> All our reviewers are now neatly organized into subject folders.</li>
-                <li><i class="fas fa-mobile-alt"></i> <b>Phone Ready:</b> Fully optimized for mobile screens so it looks great even on the go!</li>
+                <li><i class="ph ph-paper-plane-tilt"></i> <b>Classroom Chat:</b> Message your classmates instantly using the floating notepad button!</li>
+                <li><i class="ph ph-camera"></i> <b>Memories Gallery:</b> A dedicated space on the login page to see and share our class photos.</li>
+                <li><i class="ph ph-clock"></i> <b>Live Class Tracker:</b> No more guessing! See exactly what subject is happening right now in real-time.</li>
+                <li><i class="ph ph-magic-wand"></i> <b>Custom Wallpapers:</b> Generate your own aesthetic wallpapers or upload your favorite background.</li>
+                <li><i class="ph ph-eye"></i> <b>Quick Preview:</b> View your PDFs and images directly in the browser without downloading them first.</li>
+                <li><i class="ph ph-folder"></i> <b>Subject Cabinet:</b> All our reviewers are now neatly organized into subject folders.</li>
+                <li><i class="ph ph-device-mobile"></i> <b>Phone Ready:</b> Fully optimized for mobile screens so it looks great even on the go!</li>
              </ul>
         </div>
         <p style="font-size:1.3rem; margin: 15px 0; color: #d32f2f; font-weight: bold;">"Login na kayo para makita niyo!"</p>
@@ -2492,7 +2492,7 @@ window.openGalleryLightbox = function (startIndex) {
         'position:absolute; top:50%; transform:translateY(-50%) !important; background:rgba(255,255,255,0.1); color:#fff; border:2px solid #fff; width:50px; height:50px; border-radius:50%; font-size:1.5rem; cursor:pointer; display:flex; align-items:center; justify-content:center; transition:0.2s; animation: none !important;';
 
     const prevBtn = document.createElement('button');
-    prevBtn.innerHTML = '<i class="fas fa-chevron-left"></i>';
+    prevBtn.innerHTML = '<i class="ph ph-caret-left"></i>';
     prevBtn.style.cssText = btnStyle + 'left:20px;';
     prevBtn.onmouseover = () => {
         prevBtn.style.background = '#fff';
@@ -2506,7 +2506,7 @@ window.openGalleryLightbox = function (startIndex) {
     };
 
     const nextBtn = document.createElement('button');
-    nextBtn.innerHTML = '<i class="fas fa-chevron-right"></i>';
+    nextBtn.innerHTML = '<i class="ph ph-caret-right"></i>';
     nextBtn.style.cssText = btnStyle + 'right:20px;';
     nextBtn.onmouseover = () => {
         nextBtn.style.background = '#fff';
@@ -2520,7 +2520,7 @@ window.openGalleryLightbox = function (startIndex) {
     };
 
     const closeBtn = document.createElement('button');
-    closeBtn.innerHTML = '<i class="fas fa-times"></i>';
+    closeBtn.innerHTML = '<i class="ph ph-x"></i>';
     closeBtn.style.cssText =
         'position:absolute; top:20px; right:20px; background:transparent; color:#fff; border:none; font-size:2rem; cursor:pointer; animation: none !important; transform: none !important;';
 
@@ -2601,11 +2601,11 @@ async function fetchRequests() {
             (req) => `
         <div class="student-strip" style="flex-direction:column; align-items:flex-start; gap:5px; background:#fffde7;">
             <div style="width:100%; display:flex; justify-content:space-between; border-bottom:1px dashed #ccc; padding-bottom:5px;">
-                <strong><i class="fas fa-user"></i> ${req.sender || 'Anonymous'}</strong>
+                <strong><i class="ph ph-user"></i> ${req.sender || 'Anonymous'}</strong>
                 <small>${new Date(req.created_at).toLocaleDateString()} ${new Date(req.created_at).toLocaleTimeString()}</small>
             </div>
             <p style="margin:10px 0; font-family:'Patrick Hand'; font-size:1.2rem; white-space: pre-wrap;">${req.content}</p>
-            <button onclick="deleteRequest(${req.id})" class="btn-icon btn-delete" style="align-self:flex-end; font-size:0.9rem;"><i class="fas fa-trash"></i> Dismiss</button>
+            <button onclick="deleteRequest(${req.id})" class="btn-icon btn-delete" style="align-self:flex-end; font-size:0.9rem;"><i class="ph ph-trash"></i> Dismiss</button>
         </div>
     `,
         )
@@ -2655,8 +2655,8 @@ async function fetchAdminFiles() {
                 <small style="color:#666;">${file.subject} | ${new Date(file.created_at).toLocaleDateString()}</small>
             </div>
             <div style="display:flex; gap:5px;">
-                <a href="${file.file_url}" target="_blank" class="btn-icon" style="background:#0984e3; color:#fff; text-decoration:none; display:flex; align-items:center;"><i class="fas fa-eye"></i></a>
-                <button onclick="deleteAdminFile(${file.id})" class="btn-icon btn-delete"><i class="fas fa-trash"></i></button>
+                <a href="${file.file_url}" target="_blank" class="btn-icon" style="background:#0984e3; color:#fff; text-decoration:none; display:flex; align-items:center;"><i class="ph ph-eye"></i></a>
+                <button onclick="deleteAdminFile(${file.id})" class="btn-icon btn-delete"><i class="ph ph-trash"></i></button>
             </div>
         </div>
     `,
@@ -2695,7 +2695,7 @@ window.openFilePreview = function (url, title) {
 
     const loaderHtml = `
         <div id="previewLoader" style="display:flex; flex-direction:column; align-items:center; justify-content:center; height:100%; color:#555;">
-            <i class="fas fa-spinner fa-spin" style="font-size:3rem;"></i>
+            <i class="ph ph-spinner ph-spin" style="font-size:3rem;"></i>
             <p style="font-family:'Patrick Hand'; font-size:1.5rem; margin-top:10px;">Unfolding paper...</p>
         </div>
     `;
@@ -2710,7 +2710,7 @@ window.openFilePreview = function (url, title) {
     } else {
         contentHtml = `
             <div style="display:flex; flex-direction:column; align-items:center; justify-content:center; height:100%; text-align:center;">
-                <i class="fas fa-file-download" style="font-size:4rem; margin-bottom:20px;"></i>
+                <i class="ph ph-file-arrow-down" style="font-size:4rem; margin-bottom:20px;"></i>
                 <p>Preview not available for this file type.</p>
                 <a href="${url}" target="_blank" download class="preview-modal-btn" style="background:#000; color:#fff; padding:10px 20px; text-decoration:none; border: 2px solid #000; border-radius: 255px 15px 225px 15px / 15px 225px 15px 255px; font-family: 'Patrick Hand';">Download File</a>
             </div>
@@ -2735,10 +2735,10 @@ window.openFilePreview = function (url, title) {
         <div id="filePreviewModal" style="position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.85); z-index:9999; display:flex; justify-content:center; align-items:center;">
             <div class="sketch-box" style="width:90%; max-width:900px; height:85%; display:flex; flex-direction:column; padding:15px; background:#fff; position:relative; animation: popIn 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);">
                     <div style="display:flex; justify-content:space-between; align-items:center; border-bottom:2px dashed #000; padding-bottom:10px; margin-bottom:10px;">
-                    <h3 style="margin:0; font-size:1.5rem; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; max-width:60%;"><i class="fas fa-eye"></i> ${title}</h3>
+                    <h3 style="margin:0; font-size:1.5rem; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; max-width:60%;"><i class="ph ph-eye"></i> ${title}</h3>
                     <div style="display:flex; gap:5px;">
                         <a href="${url}" target="_blank" download style="text-decoration:none;">
-                            <button class="sketch-btn primary" title="Download"><i class="fas fa-download"></i></button>
+                            <button class="sketch-btn primary" title="Download"><i class="ph ph-download-simple"></i></button>
                         </a>
                         <button class="sketch-btn danger" onclick="document.getElementById('filePreviewModal').remove()">CLOSE</button>
                     </div>
@@ -2763,13 +2763,13 @@ window.generateFileCard = function (file, isNew = false) {
             : '';
 
     // Icon Logic
-    let icon = 'fa-file-alt';
+    let icon = 'ph-file-text';
     if (file.file_type) {
-        if (file.file_type.includes('pdf')) icon = 'fa-file-pdf';
-        else if (file.file_type.includes('image')) icon = 'fa-file-image';
-        else if (file.file_type.includes('word') || file.file_type.includes('doc')) icon = 'fa-file-word';
-        else if (file.file_type.includes('sheet') || file.file_type.includes('csv')) icon = 'fa-file-excel';
-        else if (file.file_type.includes('presentation') || file.file_type.includes('ppt')) icon = 'fa-file-powerpoint';
+        if (file.file_type.includes('pdf')) icon = 'ph-file-pdf';
+        else if (file.file_type.includes('image')) icon = 'ph-file-image';
+        else if (file.file_type.includes('word') || file.file_type.includes('doc')) icon = 'ph-file-doc';
+        else if (file.file_type.includes('sheet') || file.file_type.includes('csv')) icon = 'ph-file-xls';
+        else if (file.file_type.includes('presentation') || file.file_type.includes('ppt')) icon = 'ph-file-ppt';
     }
 
     // Check for Admin to add Delete Button
@@ -2790,11 +2790,11 @@ window.generateFileCard = function (file, isNew = false) {
              onmouseover="this.style.transform='scale(1.02) rotate(-1deg)'" 
              onmouseout="this.style.transform='scale(1) rotate(0deg)'">
             ${deleteBtn}
-            <div style="font-size: 1.5rem; color: #000;"><i class="fas ${icon}"></i></div>
+            <div style="font-size: 1.5rem; color: #000;"><i class="ph ${icon}"></i></div>
             <div style="text-align: left; flex: 1;">
                 <div style="font-size: 0.8rem; text-transform: uppercase; font-weight: bold; color: #666;">${subject}</div>
                 <div style="font-size: 1.1rem; line-height: 1.1; font-weight: bold;">${safeTitle}</div>
-                <div style="font-size: 0.8rem; color: #2980b9; margin-top: 2px;"><i class="fas fa-eye"></i> Click to Preview</div>
+                <div style="font-size: 0.8rem; color: #2980b9; margin-top: 2px;"><i class="ph ph-eye"></i> Click to Preview</div>
             </div>
             ${badgeHtml}
         </div>
@@ -3130,7 +3130,7 @@ window.openReceiptPreview = function (name, url) {
 
     box.innerHTML = `
         <div style="background: #2d3436; color: #fff; padding: 15px; text-align: center; border-bottom: 3px solid #000; position: relative;">
-            <h2 style="margin:0; font-size: 1.5rem; font-family: 'Patrick Hand';"><i class="fas fa-file-invoice"></i> OFFICIAL RECEIPT</h2>
+            <h2 style="margin:0; font-size: 1.5rem; font-family: 'Patrick Hand';"><i class="ph ph-receipt"></i> OFFICIAL RECEIPT</h2>
             <p style="margin:5px 0 0 0; font-size: 1rem; opacity: 0.9; font-family: sans-serif;">Student: <b>${name}</b></p>
             <div style="position: absolute; top: 10px; right: 10px; width: 15px; height: 15px; background: #d63031; border-radius: 50%; border: 2px solid #fff;"></div>
             <div style="position: absolute; top: 10px; left: 10px; width: 15px; height: 15px; background: #f1c40f; border-radius: 50%; border: 2px solid #fff;"></div>
@@ -3141,7 +3141,7 @@ window.openReceiptPreview = function (name, url) {
             </div>
             <div style="display: flex; gap: 10px; width: 100%; justify-content: center; padding: 0 20px 20px 20px; box-sizing: border-box;">
                 <a href="${url}" target="_blank" download class="sketch-btn" style="background: #0984e3; color: #fff; font-size: 1rem; flex: 1;">
-                    <i class="fas fa-download"></i> Download
+                    <i class="ph ph-download-simple"></i> Download
                 </a>
                 <button onclick="this.closest('.wimpy-modal-overlay').remove()" class="sketch-btn danger" style="font-size: 1rem; flex: 1; margin: 0 !important;">
                     Close
