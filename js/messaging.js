@@ -456,7 +456,7 @@ window.viewAdminConversation = async function (id1, id2) {
             const date = new Date(m.created_at).toLocaleString();
             return `
             <div style="background:#f1f2f6; border:1px solid #ccc; padding:8px; margin-bottom:5px; border-radius:5px; position:relative;">
-                <div style="font-size:0.75rem; color:#666; margin-bottom:3px;"><b>${escapeHTML(senderName)}</b> • ${date}</div>
+                <div style="font-size:0.75rem; color:#666; margin-bottom:3px; padding-right:25px;"><b>${escapeHTML(senderName)}</b> • ${date}</div>
                 <div style="font-family:'Patrick Hand'; font-size:1.1rem; padding-right:25px; word-break:break-word;">${escapeHTML(m.content)}</div>
                 <button onclick="deleteMessage('${m.id}', '${id1}', '${id2}')" class="sketch-btn danger" style="position:absolute; top:5px; right:5px; padding:0 5px; width:20px; height:20px; font-size:0.8rem; line-height:1; display:flex; align-items:center; justify-content:center;">X</button>
             </div>

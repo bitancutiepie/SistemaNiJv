@@ -40,7 +40,6 @@
 
         <link rel="stylesheet" href="css/common.css" />
         <link rel="stylesheet" href="css/dashboard.css" />
-        <link rel="stylesheet" href="css/games.css" />
         <link rel="stylesheet" href="css/group-chat.css" />
         <link rel="stylesheet" href="css/admin.css" />
     </head>
@@ -106,9 +105,6 @@
                 </button>
                 <button class="tab-btn" onclick="switchTab('help', event)">
                     <i class="ph ph-question"></i> Help Guide
-                </button>
-                <button class="tab-btn" onclick="switchTab('games', event)" style="background: #f1c40f" data-tab="games">
-                    <i class="ph ph-game-controller"></i> Games
                 </button>
                 <button class="tab-btn" onclick="showEndOfSemPopup()" style="background: #55efc4" data-tab="end-of-sem">
                     <i class="ph ph-flag-checkered"></i> End of Sem
@@ -1956,212 +1952,6 @@
                         </div>
                     </div>
                 </div>
-
-                <!-- ================= GAMES TAB ================= -->
-                <div id="games" class="tab-content hidden">
-                    <div style="text-align: center; margin-bottom: 30px">
-                        <h2
-                            id="game-title"
-                            style="
-                                font-family: 'Permanent Marker';
-                                font-size: 2.5rem;
-                                transform: rotate(-2deg);
-                                display: inline-block;
-                                background: #f1c40f;
-                                padding: 5px 20px;
-                                border: 3px solid #000;
-                                box-shadow: 5px 5px 0 #000;
-                            "
-                        >
-                            <i class="ph ph-game-controller"></i> WORDLE
-                        </h2>
-
-                        <div
-                            style="margin-top: 20px; display: flex; justify-content: center; gap: 10px; flex-wrap: wrap"
-                        >
-                            <button class="sketch-btn active" onclick="switchGame('wordle', this)" style="width: auto">
-                                Wordle
-                            </button>
-                            <button
-                                class="sketch-btn"
-                                onclick="switchGame('minesweeper', this)"
-                                style="width: auto; background: #e74c3c; color: #fff"
-                            >
-                                Minesweeper
-                            </button>
-                            <button
-                                class="sketch-btn"
-                                onclick="switchGame('battle', this)"
-                                style="width: auto; background: #6c5ce7; color: #fff"
-                            >
-                                ⚔️ Battle
-                            </button>
-                        </div>
-                    </div>
-
-                    <!-- Wordle Game -->
-                    <div id="wordle-game-section">
-                        <p style="text-align: center; font-family: 'Patrick Hand'; font-size: 1.5rem; margin-top: 10px">
-                            Ano kaya ba?
-                        </p>
-                        <div id="wordle-game-container" class="wordle-container">
-                            <!-- Wordle board and keyboard will be injected here -->
-                            <div class="loader">Loading Wordle...</div>
-                        </div>
-                    </div>
-
-                    <!-- Minesweeper Game -->
-                    <div id="minesweeper-game-section" class="hidden">
-                        <p style="text-align: center; font-family: 'Patrick Hand'; font-size: 1.5rem; margin-top: 10px">
-                            Ingat ka, baka sumabog!
-                        </p>
-
-                        <!-- Difficulty & Stats Selector -->
-                        <div
-                            style="
-                                text-align: center;
-                                margin-bottom: 15px;
-                                display: flex;
-                                flex-direction: column;
-                                align-items: center;
-                                gap: 10px;
-                            "
-                        >
-                            <div style="display: flex; align-items: center; gap: 15px">
-                                <label style="font-family: 'Patrick Hand'; font-size: 1.2rem">LEVEL:</label>
-                                <select
-                                    id="ms-difficulty"
-                                    onchange="initMinesweeper()"
-                                    style="
-                                        font-family: 'Patrick Hand';
-                                        font-size: 1.1rem;
-                                        padding: 5px 15px;
-                                        border: 2px solid #000;
-                                        background: #fff;
-                                        cursor: pointer;
-                                        border-radius: 5px;
-                                        box-shadow: 2px 2px 0 #000;
-                                    "
-                                >
-                                    <option value="easy">Beginner (10x10)</option>
-                                    <option value="medium">Intermediate (15x15)</option>
-                                    <option value="hard">Expert (20x20)</option>
-                                </select>
-                            </div>
-
-                            <div
-                                id="ms-best-time-container"
-                                style="
-                                    font-family: 'Permanent Marker';
-                                    font-size: 1rem;
-                                    color: #6c5ce7;
-                                    background: #fffdf0;
-                                    padding: 5px 15px;
-                                    border: 2px solid #000;
-                                    transform: rotate(-1deg);
-                                    box-shadow: 3px 3px 0 #000;
-                                "
-                            >
-                                <i class="ph ph-crown"></i> BEST: <span id="ms-best-time">--:--</span>
-                            </div>
-                        </div>
-
-                        <div id="minesweeper-container" class="minesweeper-container">
-                            <div class="minesweeper-header">
-                                <div class="ms-stat" title="Mines Remaining">
-                                    <i class="ph ph-bomb"></i>
-                                    <span id="ms-mine-count">000</span>
-                                </div>
-                                <button id="ms-reset-btn" class="ms-face-btn">
-                                    <i class="ph ph-smiley"></i>
-                                </button>
-                                <div class="ms-stat" title="Time Elapsed">
-                                    <i class="ph ph-clock"></i>
-                                    <span id="ms-timer">000</span>
-                                </div>
-                            </div>
-                            <div id="minesweeper-board" class="minesweeper-board"></div>
-                        </div>
-                    </div>
-
-                    <!-- Creature Battle Game -->
-                    <div id="battle-game-section" class="hidden">
-                        <p style="text-align: center; font-family: 'Patrick Hand'; font-size: 1.5rem; margin-top: 10px">
-                            Sino ang pinakamatapang?
-                        </p>
-                        <div id="battle-game-container">
-                            <div class="loader">Summoning creatures...</div>
-                        </div>
-                    </div>
-
-                    <!-- Wordle Pool Manager (Main Admin Only) -->
-                    <div
-                        id="wordle-pool-section"
-                        class="admin-only hidden"
-                        style="margin-top: 50px; border-top: 3px dashed #000; padding-top: 30px"
-                    >
-                        <div
-                            style="
-                                background: #fff;
-                                border: 3px solid #000;
-                                padding: 20px;
-                                box-shadow: 6px 6px 0 #000;
-                                max-width: 600px;
-                                margin: 0 auto;
-                            "
-                        >
-                            <h3 style="font-family: 'Permanent Marker'; margin-top: 0">
-                                <i class="ph ph-text-aa"></i> WORD POOL MANAGER
-                            </h3>
-                            <p style="font-family: 'Patrick Hand'; font-size: 1.1rem; color: #666; margin-bottom: 15px">
-                                (Add/Remove words for everyone's Wordle game)
-                            </p>
-
-                            <form onsubmit="addWordleWord(event)" autocomplete="off" style="margin-bottom: 20px">
-                                <div style="display: flex; gap: 10px">
-                                    <input
-                                        type="text"
-                                        id="w-new-word"
-                                        placeholder="NEW WORD"
-                                        maxlength="5"
-                                        required
-                                        style="
-                                            text-transform: uppercase;
-                                            font-family: 'Permanent Marker';
-                                            font-size: 1.2rem;
-                                            flex: 1;
-                                            border: 2px solid #000;
-                                            padding: 10px;
-                                        "
-                                    />
-                                    <button
-                                        type="submit"
-                                        class="sketch-btn"
-                                        style="background: #000; color: #fff; width: auto; padding: 10px 20px"
-                                    >
-                                        <i class="ph ph-plus"></i> ADD
-                                    </button>
-                                </div>
-                            </form>
-
-                            <div
-                                id="admin-wordle-list"
-                                style="
-                                    max-height: 200px;
-                                    overflow-y: auto;
-                                    border: 2px solid #000;
-                                    padding: 15px;
-                                    background: #fffdf0;
-                                    display: flex;
-                                    flex-wrap: wrap;
-                                    gap: 8px;
-                                "
-                            >
-                                <div class="loader">Checking list...</div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
             </div>
             <!-- End Paper Content -->
         </div>
@@ -3188,9 +2978,6 @@
         <script src="js/messaging.js?v=2.0"></script>
         <script src="js/admin.js?v=2.0"></script>
         <script src="js/pdf-scanner.js?v=2.0"></script>
-        <script src="js/wordle.js?v=2.0"></script>
-        <script src="js/minesweeper.js?v=2.0"></script>
-        <script src="js/creature-battle.js?v=2.0"></script>
 
         <script src="js/file-manager.js?v=2.0"></script>
         <script src="js/end-of-sem.js?v=1.0"></script>
@@ -3375,6 +3162,612 @@
                     gcBadge.style.display = count > 0 ? 'block' : 'none';
                 } catch (e) {}
             }, 5000);
+        </script>
+
+        <!-- Interactive Margin Stickman -->
+        <style>
+            .sm-stage {
+                position: fixed;
+                width: 96px;
+                height: 140px;
+                overflow: hidden;
+                pointer-events: none;
+                z-index: 45;
+                opacity: 0;
+                visibility: hidden;
+                transition:
+                    opacity 0.2s ease,
+                    visibility 0.2s ease;
+            }
+            .sm-stage.sm-visible {
+                opacity: 1;
+                visibility: visible;
+            }
+            .sm-stage[data-side='left'] {
+                transform: scaleX(-1);
+            }
+            .sm-actor {
+                pointer-events: none;
+            }
+            .sm-actor,
+            button.sm-actor,
+            button.sm-actor:hover:not(:disabled),
+            button.sm-actor:active:not(:disabled) {
+                position: relative;
+                width: 96px;
+                height: 140px;
+                padding: 0 !important;
+                margin: 0 !important;
+                border: 0 !important;
+                border-radius: 0 !important;
+                background: transparent !important;
+                box-shadow: none !important;
+                backdrop-filter: none !important;
+                cursor: pointer;
+                display: block;
+                outline: none;
+                -webkit-tap-highlight-color: transparent;
+                filter: drop-shadow(0 3px 6px rgba(0, 0, 0, 0.55));
+                transition: filter 0.25s ease !important;
+            }
+            .sm-stage[data-state='half-peek'] .sm-actor,
+            .sm-stage[data-state='full-peek'] .sm-actor,
+            .sm-stage[data-state='startled'] .sm-actor {
+                pointer-events: auto;
+            }
+            .sm-actor:hover {
+                filter: drop-shadow(0 0 8px rgba(248, 250, 252, 0.45))
+                    drop-shadow(0 4px 8px rgba(0, 0, 0, 0.6));
+            }
+            .sm-actor:focus-visible {
+                outline: 2px solid #f8fafc;
+                outline-offset: -4px;
+                border-radius: 12px;
+            }
+            .sm-svg {
+                width: 96px;
+                height: 140px;
+                overflow: visible;
+                display: block;
+            }
+            /* Stage 1: Gripping hands */
+            #sm-hands {
+                transform: translateX(-22px);
+                opacity: 0;
+                transition:
+                    transform 0.15s cubic-bezier(0.22, 1, 0.36, 1),
+                    opacity 0.12s ease;
+            }
+            .sm-stage[data-state='gripping'] #sm-hands,
+            .sm-stage[data-state='half-peek'] #sm-hands,
+            .sm-stage[data-state='full-peek'] #sm-hands,
+            .sm-stage[data-state='startled'] #sm-hands {
+                transform: translateX(0);
+                opacity: 1;
+            }
+            .sm-stage[data-state='retreating'] #sm-hands {
+                transform: translateX(-22px);
+                opacity: 0;
+                transition:
+                    transform 0.18s ease-in 0.08s,
+                    opacity 0.15s ease-in 0.08s;
+            }
+            /* Stage 2: Torso & Head spring out */
+            #sm-body-lean {
+                transform-origin: 0px 104px;
+                transform: translateX(-76px) rotate(-14deg);
+                transition: transform 0.44s cubic-bezier(0.34, 1.56, 0.64, 1);
+            }
+            .sm-stage[data-state='half-peek'] #sm-body-lean {
+                transform: translateX(-26px) rotate(4deg);
+            }
+            .sm-stage[data-state='full-peek'] #sm-body-lean {
+                transform: translateX(0px) rotate(7deg);
+            }
+            .sm-stage[data-state='startled'] #sm-body-lean {
+                transform: translateX(3px) rotate(10deg);
+            }
+            .sm-stage[data-state='retreating'] #sm-body-lean {
+                transform: translateX(-78px) rotate(-16deg);
+                transition: transform 0.22s cubic-bezier(0.55, 0, 1, 0.45);
+            }
+            /* Head independent tilt */
+            #sm-head {
+                transform-origin: 36px 64px;
+                transition: transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
+            }
+            .sm-stage[data-state='half-peek'] #sm-head {
+                transform: rotate(-4deg);
+            }
+            .sm-stage[data-state='full-peek'] #sm-head {
+                transform: rotate(5deg);
+            }
+            .sm-actor:hover #sm-head {
+                transform: rotate(10deg) translateY(-1px);
+            }
+            /* Eyes blink & widen */
+            #sm-eyes-blink {
+                transform-origin: 43px 44px;
+                transition: transform 0.08s ease;
+            }
+            #sm-eyes-blink.sm-blink {
+                transform: scaleY(0.08);
+            }
+            .sm-stage[data-state='startled'] #sm-eyes-blink {
+                transform: scale(1.24);
+            }
+            /* Mouth states */
+            .sm-mouth-shape {
+                opacity: 0;
+                transition: opacity 0.1s ease;
+            }
+            .sm-stage[data-mouth='neutral'] .sm-mouth-neutral,
+            .sm-stage[data-mouth='smirk'] .sm-mouth-smirk,
+            .sm-stage[data-mouth='shocked'] .sm-mouth-shocked {
+                opacity: 1;
+            }
+            /* Comic shock lines */
+            #sm-fx {
+                transform-origin: 54px 28px;
+                opacity: 0;
+                transform: scale(0.5);
+                transition:
+                    opacity 0.12s ease,
+                    transform 0.2s cubic-bezier(0.34, 1.56, 0.64, 1);
+            }
+            .sm-stage[data-state='startled'] #sm-fx {
+                opacity: 1;
+                transform: scale(1.05);
+            }
+            /* Wave hand on hover */
+            #sm-hand-top {
+                transition: opacity 0.2s ease;
+            }
+            #sm-wave-hand {
+                transform-origin: 18px 82px;
+                opacity: 0;
+                transition: opacity 0.2s ease;
+            }
+            .sm-stage[data-state='full-peek'] .sm-actor:hover #sm-wave-hand {
+                opacity: 1;
+            }
+            .sm-stage[data-state='full-peek'] .sm-actor:hover #sm-hand-top {
+                opacity: 0;
+            }
+            @media (prefers-reduced-motion: no-preference) {
+                .sm-stage[data-state='half-peek'] #sm-float,
+                .sm-stage[data-state='full-peek'] #sm-float {
+                    animation: sm-breathe 2.8s ease-in-out infinite;
+                }
+                .sm-stage[data-state='full-peek'] .sm-actor:hover #sm-wave-hand {
+                    animation: sm-wave 0.9s ease-in-out infinite alternate;
+                }
+                .sm-stage[data-state='startled'] #sm-float {
+                    animation: sm-startle-hop 0.42s cubic-bezier(0.34, 1.56, 0.64, 1);
+                }
+            }
+            @keyframes sm-breathe {
+                0%,
+                100% {
+                    transform: translateY(0px);
+                }
+                50% {
+                    transform: translateY(-3px);
+                }
+            }
+            @keyframes sm-wave {
+                0% {
+                    transform: rotate(-10deg);
+                }
+                100% {
+                    transform: rotate(16deg);
+                }
+            }
+            @keyframes sm-startle-hop {
+                0% {
+                    transform: translateY(0) scale(1, 1);
+                }
+                25% {
+                    transform: translateY(-10px) scale(0.92, 1.1) rotate(-5deg);
+                }
+                50% {
+                    transform: translateY(2px) scale(1.08, 0.92) rotate(6deg);
+                }
+                75% {
+                    transform: translateY(-4px) scale(0.98, 1.03) rotate(-4deg);
+                }
+                100% {
+                    transform: translateY(0) scale(1, 1) rotate(0deg);
+                }
+            }
+        </style>
+
+        <div id="sm-stage" class="sm-stage" data-side="right" data-state="hidden" data-mouth="smirk">
+            <button type="button" id="sm-actor" class="sm-actor" aria-label="Playful margin stickman">
+                <svg class="sm-svg" viewBox="0 0 96 140" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <g id="sm-float">
+                        <g id="sm-body-lean">
+                            <g id="sm-torso" stroke="#F8FAFC" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M -6 126 Q 14 96 28 68" />
+                                <path d="M 22 76 Q 14 66 8 54" />
+                                <path d="M 12 100 Q 10 96 8 92" />
+                                <g id="sm-wave-hand">
+                                    <path d="M 22 76 Q 32 68 30 56" />
+                                    <path d="M 27 56 L 30 51 M 30 56 L 34 52 M 32 58 L 36 56" stroke-width="2.4" />
+                                </g>
+                            </g>
+                            <g id="sm-head">
+                                <path
+                                    d="M 43 24 C 55 24 64 33 63 45 C 63 57 54 66 42 66 C 30 66 22 56 23 44 C 23 32 31 24 43 24 Z"
+                                    fill="#0F172A"
+                                    stroke="#F8FAFC"
+                                    stroke-width="3.2"
+                                    stroke-linecap="round"
+                                    stroke-linejoin="round"
+                                />
+                                <g id="sm-eyes">
+                                    <g id="sm-eyes-blink">
+                                        <circle cx="36" cy="43" r="5" fill="#F8FAFC" />
+                                        <circle cx="51" cy="43" r="5" fill="#F8FAFC" />
+                                        <circle id="sm-pupil-l" cx="36" cy="43" r="2.3" fill="#0F172A" />
+                                        <circle id="sm-pupil-r" cx="51" cy="43" r="2.3" fill="#0F172A" />
+                                    </g>
+                                </g>
+                                <g id="sm-mouth" stroke="#F8FAFC" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                                    <path class="sm-mouth-shape sm-mouth-neutral" d="M 38 55 Q 43.5 56 49 55" />
+                                    <path class="sm-mouth-shape sm-mouth-smirk" d="M 38 54 Q 44.5 59 51 52.5" />
+                                    <ellipse class="sm-mouth-shape sm-mouth-shocked" cx="43.5" cy="55.5" rx="3.5" ry="4.5" fill="#0F172A" />
+                                </g>
+                            </g>
+                        </g>
+                        <g id="sm-hands" stroke="#F8FAFC" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round">
+                            <g id="sm-hand-top">
+                                <path d="M 1 49 C 7 47 11 49 11 52 C 11 55 7 57 1 56" fill="#0F172A" />
+                                <path d="M 4 51 L 9 51 M 4 54 L 9 54" stroke-width="2" />
+                            </g>
+                            <g id="sm-hand-bottom">
+                                <path d="M 1 88 C 7 86 11 88 11 91 C 11 94 7 96 1 95" fill="#0F172A" />
+                                <path d="M 4 90 L 9 90 M 4 93 L 9 93" stroke-width="2" />
+                            </g>
+                        </g>
+                        <g id="sm-fx" stroke="#F8FAFC" stroke-width="2.4" stroke-linecap="round">
+                            <line x1="65" y1="22" x2="73" y2="15" />
+                            <line x1="69" y1="31" x2="79" y2="29" />
+                            <line x1="68" y1="41" x2="77" y2="44" />
+                            <line x1="56" y1="17" x2="60" y2="9" />
+                        </g>
+                    </g>
+                </svg>
+            </button>
+        </div>
+
+        <script>
+            (function () {
+                const binder = document.querySelector('.binder');
+                const stage = document.getElementById('sm-stage');
+                const actor = document.getElementById('sm-actor');
+                const eyesBlink = document.getElementById('sm-eyes-blink');
+                const pupilL = document.getElementById('sm-pupil-l');
+                const pupilR = document.getElementById('sm-pupil-r');
+                if (!binder || !stage || !actor || !pupilL || !pupilR) return;
+
+                const MIN_MARGIN = 85;
+                const STAGE_W = 96;
+                const STAGE_H = 140;
+                const MAX_PUPIL_OFFSET = 2.1;
+
+                let side = 'right';
+                let yRatio = 0.42;
+                let state = 'hidden';
+                let isHovered = false;
+                let isPoked = false;
+                let hasSpace = false;
+
+                let mouseX = window.innerWidth * 0.5;
+                let mouseY = window.innerHeight * 0.5;
+                let curPX = 0;
+                let curPY = 0;
+                let scrollGlanceY = 0;
+                let lastScrollY = window.scrollY;
+                let lastScrollT = performance.now();
+
+                let stateTimer = null;
+                let entranceTimer = null;
+                let blinkTimer = null;
+                let posRaf = null;
+
+                function clearTimers() {
+                    clearTimeout(stateTimer);
+                    clearTimeout(entranceTimer);
+                }
+
+                function setState(next) {
+                    state = next;
+                    stage.dataset.state = next;
+                }
+
+                function setMouth(mood) {
+                    stage.dataset.mouth = mood;
+                }
+
+                function pickRandomY() {
+                    yRatio = 0.2 + Math.random() * 0.55;
+                }
+
+                function getAvailableSides() {
+                    const rect = binder.getBoundingClientRect();
+                    const spaceLeft = rect.left;
+                    const spaceRight = window.innerWidth - rect.right;
+                    return {
+                        rect,
+                        canLeft: spaceLeft >= MIN_MARGIN,
+                        canRight: spaceRight >= MIN_MARGIN,
+                        spaceLeft,
+                        spaceRight
+                    };
+                }
+
+                function updatePosition() {
+                    posRaf = null;
+                    const { rect, canLeft, canRight, spaceLeft, spaceRight } = getAvailableSides();
+
+                    if (!canLeft && !canRight) {
+                        hasSpace = false;
+                        if (state !== 'hidden') {
+                            clearTimers();
+                            setState('hidden');
+                        }
+                        stage.classList.remove('sm-visible');
+                        return;
+                    }
+
+                    if (side === 'right' && !canRight && canLeft) {
+                        side = 'left';
+                    } else if (side === 'left' && !canLeft && canRight) {
+                        side = 'right';
+                    }
+
+                    hasSpace = true;
+                    stage.dataset.side = side;
+
+                    const clampedW = Math.min(STAGE_W, Math.floor(side === 'right' ? spaceRight : spaceLeft));
+                    stage.style.width = clampedW + 'px';
+
+                    const desiredTop = window.innerHeight * yRatio - STAGE_H * 0.5;
+                    const minTop = Math.max(12, rect.top + 16);
+                    const maxTop = Math.min(window.innerHeight - STAGE_H - 12, rect.bottom - STAGE_H - 16);
+                    const top = Math.max(minTop, Math.min(maxTop, desiredTop));
+
+                    stage.style.top = Math.round(top) + 'px';
+                    if (side === 'right') {
+                        stage.style.left = Math.round(rect.right) + 'px';
+                    } else {
+                        stage.style.left = Math.round(rect.left - clampedW) + 'px';
+                    }
+
+                    stage.classList.add('sm-visible');
+                }
+
+                function schedulePositionUpdate() {
+                    if (!posRaf) {
+                        posRaf = requestAnimationFrame(updatePosition);
+                    }
+                }
+
+                function enterPeek(targetState) {
+                    if (!hasSpace || isPoked) return;
+                    clearTimers();
+                    if (state === 'hidden' || state === 'retreating') {
+                        setMouth(Math.random() < 0.65 ? 'smirk' : 'neutral');
+                        setState('gripping');
+                        entranceTimer = setTimeout(() => {
+                            if (!isPoked && hasSpace) {
+                                setState(targetState);
+                            }
+                        }, 150);
+                    } else {
+                        setState(targetState);
+                    }
+                }
+
+                function scheduleNextAutonomous() {
+                    clearTimeout(stateTimer);
+                    if (isPoked || isHovered) return;
+
+                    const delay =
+                        state === 'hidden'
+                            ? 1600 + Math.random() * 2000
+                            : 2800 + Math.random() * 3400;
+
+                    stateTimer = setTimeout(() => {
+                        if (isPoked || isHovered) return;
+                        if (!hasSpace) {
+                            scheduleNextAutonomous();
+                            return;
+                        }
+
+                        const { canLeft, canRight } = getAvailableSides();
+                        if (state === 'hidden') {
+                            if (canLeft && canRight && Math.random() < 0.45) {
+                                side = side === 'right' ? 'left' : 'right';
+                            }
+                            pickRandomY();
+                            updatePosition();
+                            enterPeek(Math.random() < 0.55 ? 'half-peek' : 'full-peek');
+                        } else if (state === 'half-peek') {
+                            if (Math.random() < 0.65) {
+                                setMouth('smirk');
+                                setState('full-peek');
+                            } else {
+                                setState('retreating');
+                                entranceTimer = setTimeout(() => setState('hidden'), 240);
+                            }
+                        } else {
+                            if (Math.random() < 0.4) {
+                                setMouth('neutral');
+                                setState('half-peek');
+                            } else {
+                                setState('retreating');
+                                entranceTimer = setTimeout(() => setState('hidden'), 240);
+                            }
+                        }
+                        scheduleNextAutonomous();
+                    }, delay);
+                }
+
+                function scheduleBlink() {
+                    clearTimeout(blinkTimer);
+                    blinkTimer = setTimeout(() => {
+                        if (state === 'half-peek' || state === 'full-peek') {
+                            eyesBlink.classList.add('sm-blink');
+                            setTimeout(() => {
+                                eyesBlink.classList.remove('sm-blink');
+                                if (Math.random() < 0.28) {
+                                    setTimeout(() => {
+                                        eyesBlink.classList.add('sm-blink');
+                                        setTimeout(() => eyesBlink.classList.remove('sm-blink'), 90);
+                                    }, 130);
+                                }
+                            }, 95);
+                        }
+                        scheduleBlink();
+                    }, 3000 + Math.random() * 2200);
+                }
+
+                function eyeLoop() {
+                    if (hasSpace && (state === 'half-peek' || state === 'full-peek' || state === 'startled')) {
+                        const rect = stage.getBoundingClientRect();
+                        const eyeCenterX = side === 'right' ? rect.left + 43 : rect.right - 43;
+                        const eyeCenterY = rect.top + 43;
+
+                        const dxScreen = mouseX - eyeCenterX;
+                        const dyScreen = mouseY - eyeCenterY;
+                        const dist = Math.hypot(dxScreen, dyScreen) || 1;
+                        const norm = Math.min(1, dist / 240);
+
+                        let targetX = (dxScreen / dist) * MAX_PUPIL_OFFSET * norm;
+                        if (side === 'left') targetX = -targetX;
+
+                        let targetY = (dyScreen / dist) * MAX_PUPIL_OFFSET * norm + scrollGlanceY;
+                        targetY = Math.max(-MAX_PUPIL_OFFSET, Math.min(MAX_PUPIL_OFFSET, targetY));
+
+                        curPX += (targetX - curPX) * 0.18;
+                        curPY += (targetY - curPY) * 0.18;
+
+                        const transform = `translate(${curPX.toFixed(2)}px, ${curPY.toFixed(2)}px)`;
+                        pupilL.style.transform = transform;
+                        pupilR.style.transform = transform;
+                    }
+                    scrollGlanceY *= 0.88;
+                    if (Math.abs(scrollGlanceY) < 0.03) scrollGlanceY = 0;
+                    requestAnimationFrame(eyeLoop);
+                }
+
+                actor.addEventListener('mouseenter', () => {
+                    isHovered = true;
+                    if (!isPoked && hasSpace) {
+                        setMouth('smirk');
+                        enterPeek('full-peek');
+                    }
+                });
+
+                actor.addEventListener('mouseleave', () => {
+                    isHovered = false;
+                    if (!isPoked) {
+                        scheduleNextAutonomous();
+                    }
+                });
+
+                actor.addEventListener('click', () => {
+                    if (isPoked || !hasSpace) return;
+                    isPoked = true;
+                    clearTimers();
+                    setMouth('shocked');
+                    setState('startled');
+
+                    entranceTimer = setTimeout(() => {
+                        setState('retreating');
+                        stateTimer = setTimeout(() => {
+                            setState('hidden');
+                            setMouth('smirk');
+                            stateTimer = setTimeout(() => {
+                                isPoked = false;
+                                const { canLeft, canRight } = getAvailableSides();
+                                if (canLeft && canRight && Math.random() < 0.65) {
+                                    side = side === 'right' ? 'left' : 'right';
+                                }
+                                pickRandomY();
+                                updatePosition();
+                                enterPeek('full-peek');
+                                scheduleNextAutonomous();
+                            }, 1500);
+                        }, 240);
+                    }, 420);
+                });
+
+                window.addEventListener(
+                    'mousemove',
+                    (e) => {
+                        mouseX = e.clientX;
+                        mouseY = e.clientY;
+                    },
+                    { passive: true }
+                );
+
+                window.addEventListener(
+                    'scroll',
+                    () => {
+                        const now = performance.now();
+                        const dy = window.scrollY - lastScrollY;
+                        const dt = Math.max(16, now - lastScrollT);
+                        const velocity = dy / dt;
+                        if (Math.abs(velocity) > 0.45) {
+                            scrollGlanceY = Math.max(-1.8, Math.min(1.8, velocity * 1.4));
+                        }
+                        lastScrollY = window.scrollY;
+                        lastScrollT = now;
+                        schedulePositionUpdate();
+                    },
+                    { passive: true }
+                );
+
+                window.addEventListener('resize', schedulePositionUpdate, { passive: true });
+
+                if (typeof ResizeObserver !== 'undefined') {
+                    const ro = new ResizeObserver(schedulePositionUpdate);
+                    ro.observe(binder);
+                    ro.observe(document.documentElement);
+                }
+
+                if (typeof MutationObserver !== 'undefined') {
+                    const mo = new MutationObserver((mutations) => {
+                        for (let i = 0; i < mutations.length; i++) {
+                            if (!stage.contains(mutations[i].target)) {
+                                schedulePositionUpdate();
+                                break;
+                            }
+                        }
+                    });
+                    mo.observe(binder, {
+                        attributes: true,
+                        attributeFilter: ['class', 'style']
+                    });
+                    mo.observe(document.body, {
+                        attributes: true,
+                        attributeFilter: ['class', 'style']
+                    });
+                }
+
+                updatePosition();
+                scheduleBlink();
+                requestAnimationFrame(eyeLoop);
+                setTimeout(() => {
+                    if (hasSpace) {
+                        enterPeek('half-peek');
+                        scheduleNextAutonomous();
+                    }
+                }, 700);
+            })();
         </script>
     </body>
 </html>

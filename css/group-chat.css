@@ -218,6 +218,10 @@
     text-align: left;
 }
 
+.ann-mini-card:has(.ann-delete-btn) .ann-mini-content {
+    padding-right: 18px;
+}
+
 .ann-mini-card:active {
     transform: scale(0.97);
 }

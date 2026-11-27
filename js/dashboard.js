@@ -278,11 +278,6 @@ window.switchTab = function (tabId, event) {
     document.querySelectorAll('.tab-content').forEach((el) => el.classList.add('hidden'));
     document.querySelectorAll('.tab-btn').forEach((el) => el.classList.remove('active'));
 
-    // Global cleanup for games
-    if (tabId !== 'games' && window.cleanupMinesweeper) {
-        window.cleanupMinesweeper();
-    }
-
     const selectedTab = document.getElementById(tabId);
     if (selectedTab) {
         selectedTab.classList.remove('hidden');
@@ -290,43 +285,6 @@ window.switchTab = function (tabId, event) {
     }
 
     if (targetBtn) targetBtn.classList.add('active');
-};
-
-window.switchGame = function (game, btn) {
-    const title = document.getElementById('game-title');
-    const wordleSection = document.getElementById('wordle-game-section');
-    const msSection = document.getElementById('minesweeper-game-section');
-    const battleSection = document.getElementById('battle-game-section');
-
-    // Update buttons
-    btn.parentElement.querySelectorAll('.sketch-btn').forEach((b) => b.classList.remove('active'));
-    btn.classList.add('active');
-
-    if (game === 'wordle') {
-        title.innerHTML = '<i class="ph ph-game-controller"></i> WORDLE';
-        title.style.background = '#f1c40f';
-        title.style.color = '#000';
-        wordleSection.classList.remove('hidden');
-        msSection.classList.add('hidden');
-        if (battleSection) battleSection.classList.add('hidden');
-        if (window.initWimpyWordle) window.initWimpyWordle();
-    } else if (game === 'minesweeper') {
-        title.innerHTML = '<i class="ph ph-bomb"></i> MINESWEEPER';
-        title.style.background = '#e74c3c';
-        title.style.color = '#000';
-        wordleSection.classList.add('hidden');
-        msSection.classList.remove('hidden');
-        if (battleSection) battleSection.classList.add('hidden');
-        if (window.initMinesweeper) window.initMinesweeper();
-    } else if (game === 'battle') {
-        title.innerHTML = '⚔️ CREATURE BATTLE';
-        title.style.background = '#6c5ce7';
-        title.style.color = '#fff';
-        wordleSection.classList.add('hidden');
-        msSection.classList.add('hidden');
-        if (battleSection) battleSection.classList.remove('hidden');
-        if (window.initCreatureBattle) window.initCreatureBattle();
-    }
 };
 
 window.activeScheduleSection = null;
@@ -451,7 +409,7 @@ async function loadSchedule(dayFilter, sectionFilter) {
             return `
             <div class="class-card" style="animation-delay: ${index * 0.1}s; ${isAdmin ? 'border-style: solid; border-width: 2px;' : ''}">
                 ${deleteBtn}
-                <h3 style="margin:0 0 6px 0;">${escapeHTML(cls.subject_name)}</h3>
+                <h3 style="margin:0 0 6px 0;${isAdmin ? ' padding-right:40px;' : ''}">${escapeHTML(cls.subject_name)}</h3>
                 <div class="class-header">
                     <span class="subject-code">${escapeHTML(cls.subject_code)} <small style="background:#6c5ce7; color:#fff; padding:1px 6px; border-radius:4px; font-size:0.75rem; border:1px solid #000;">${escapeHTML(classSec)}</small></span>
                     <span class="time-badge">${start12h} - ${end12h}</span>
@@ -601,7 +559,7 @@ async function loadAssignments() {
             return `
             <div class="class-card homework-card" style="animation-delay: ${index * 0.1}s; cursor: pointer; position: relative;" onclick="toggleHomework(this)">
                 ${deleteBtn}
-                <div style="display: flex; justify-content: space-between; align-items: flex-start; padding-right: 30px;">
+                <div style="display: flex; justify-content: space-between; align-items: flex-start; padding-right: ${isAdmin ? '38px' : '30px'};">
                     <div>
                         <div class="assignment-subject-tag">${escapeHTML(task.subject)}</div>
                         <h3 style="margin-top: 5px;">${escapeHTML(task.title)}</h3>
@@ -1551,89 +1509,10 @@ async function populateSubjectOptions() {
 
 // --- FILE UPLOAD & FILTERING LOGIC ---
 
-// New Function: Filter the files when button is clicked
+// New Function: Filter the files when button is clicked (implementation in js/file-manager.js)
 window.filterFiles = function (subject) {
-    loadFiles(subject);
+    if (window.loadFiles) window.loadFiles(subject);
 };
-
-async function loadFiles(subjectFilter = 'All') {
-    const list = document.getElementById('file-list');
-    const label = document.getElementById('file-filter-label');
-    if (!list) return;
-
-    if (label) label.innerText = subjectFilter === 'All' ? 'Showing: All Files' : `Showing: ${subjectFilter}`;
-    list.innerHTML = '<div class="loader">Rummaging through files...</div>';
-
-    // Start Query
-    let query = db
-        .from('shared_files')
-        .select('*')
-        .neq('subject', 'LandingGallery')
-        .not('subject', 'like', 'Receipt-%')
-        .order('created_at', { ascending: false })
-        .limit(200);
-
-    // Apply Filter if not 'All'
-    if (subjectFilter !== 'All') {
-        query = query.eq('subject', subjectFilter);
-    }
-
-    const { data, error } = await query;
-
-    if (error) {
-        console.error(error);
-        list.innerHTML = '<p>Error loading files.</p>';
-        return;
-    }
-
-    // FIX: Use the superior renderer from web2.html if available (supports Previews)
-    if (typeof window.renderFileList === 'function') {
-        window.renderFileList(data);
-        return;
-    }
-
-    if (!data || data.length === 0) {
-        list.innerHTML = '<p style="text-align:center; width:100%;">No files found in this folder.</p>';
-        return;
-    }
-
-    list.innerHTML = data
-        .map((file, index) => {
-            const deleteBtn = isAdmin
-                ? `<button onclick="deleteFile(${file.id})" class="sketch-btn danger" style="position:absolute; top:5px; right:5px; padding: 2px 8px; font-size: 0.8rem;">X</button>`
-                : '';
-
-            // Choose icon
-            let icon = 'ph-file';
-            if (file.file_type.includes('pdf')) icon = 'ph-file-pdf';
-            else if (file.file_type.includes('image')) icon = 'ph-file-image';
-            else if (file.file_type.includes('word') || file.file_type.includes('doc')) icon = 'ph-file-doc';
-            else if (file.file_type.includes('sheet') || file.file_type.includes('csv')) icon = 'ph-file-xls';
-            else if (file.file_type.includes('presentation') || file.file_type.includes('ppt'))
-                icon = 'ph-file-ppt';
-
-            const subjectTag = file.subject
-                ? `<span style="background:#dfe6e9; font-size:0.8rem; padding:2px 6px; border-radius:4px;">${file.subject}</span>`
-                : '';
-
-            return `
-            <div class="class-card" style="text-align:center; display:flex; flex-direction:column; align-items:center; justify-content:space-between; animation-delay: ${index * 0.1}s">
-                ${deleteBtn}
-                <div style="width:100%;">
-                    <div style="font-size: 2.5rem; color: #57606f; margin-top:10px;">
-                        <i class="ph ${icon}"></i>
-                    </div>
-                    <h3 style="font-size: 1.1rem; margin: 10px 0; word-break: break-word;">${escapeHTML(file.title)}</h3>
-                    ${subjectTag}
-                </div>
-                <a href="${file.file_url}" download class="sketch-btn" style="width:80%; justify-content:center; margin-top:10px;">
-                    Download <i class="ph ph-download-simple"></i>
-                </a>
-            </div>
-        `;
-        })
-        .join('');
-}
 
 // File & Gallery Uploads moved to admin.js
 
@@ -3154,7 +3033,7 @@ function renderFlashcardCards(cards) {
                         <i class="ph ph-stack"></i>
                     </div>
                     <div style="flex: 1; min-width: 180px;">
-                        <h3 style="margin: 0 30px 5px 0; font-family: 'Permanent Marker'; font-size: 1.2rem; color: #2d3436;">
+                        <h3 style="margin: 0 ${isAdmin ? '38px' : '0'} 5px 0; font-family: 'Permanent Marker'; font-size: 1.2rem; color: #2d3436;">
                             ${escapeHTML(card.topic)}
                         </h3>
                         ${card.description ? `<p style="margin: 0 0 8px 0; font-family: 'Patrick Hand'; font-size: 1rem; color: #636e72; line-height: 1.4;">${escapeHTML(card.description)}</p>` : ''}

@@ -2791,7 +2791,7 @@ window.generateFileCard = function (file, isNew = false) {
              onmouseout="this.style.transform='scale(1) rotate(0deg)'">
             ${deleteBtn}
             <div style="font-size: 1.5rem; color: #000;"><i class="ph ${icon}"></i></div>
-            <div style="text-align: left; flex: 1;">
+            <div style="text-align: left; flex: 1;${deleteBtn ? ' padding-right: 34px;' : ''}">
                 <div style="font-size: 0.8rem; text-transform: uppercase; font-weight: bold; color: #666;">${subject}</div>
                 <div style="font-size: 1.1rem; line-height: 1.1; font-weight: bold;">${safeTitle}</div>
                 <div style="font-size: 0.8rem; color: #2980b9; margin-top: 2px;"><i class="ph ph-eye"></i> Click to Preview</div>
